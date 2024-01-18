@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -108,11 +109,15 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password)
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate date_arrive, LocalDate date_depart)
 	{
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password);
-		employes.add(employe);
-		return employe;
+	    if (date_arrive != null && date_depart != null && date_arrive.isAfter(date_depart)) {
+	        throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");
+	    }
+
+	    Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date_arrive, date_depart);
+	    employes.add(employe);
+	    return employe;
 	}
 	
 	void remove(Employe employe)

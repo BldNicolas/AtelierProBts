@@ -1,5 +1,5 @@
 package personnel;
-
+import java.time.*;
 import java.io.Serializable;
 
 /**
@@ -14,10 +14,11 @@ public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
+	private LocalDate date_arrive, date_depart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrive, LocalDate date_depart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -25,6 +26,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		this.date_arrive = date_arrive;
+		this.date_depart = date_depart;
 	}
 	
 	/**
@@ -142,6 +145,32 @@ public class Employe implements Serializable, Comparable<Employe>
 	public Ligue getLigue()
 	{
 		return ligue;
+	}
+
+	
+	
+	public LocalDate getDate_arrive() {
+		return date_arrive;
+	}
+
+	public void setDate_arrive(LocalDate date_arrive) {
+	    if (date_arrive != null && (date_depart == null || date_arrive.isBefore(date_depart))) {
+	        this.date_arrive = date_arrive;
+	    } else {
+	        throw new IllegalArgumentException("La date d'arrivée est invalide.");
+	    }
+	}
+
+	public LocalDate getDate_depart() {
+		return date_depart;
+	}
+
+	public void setDate_depart(LocalDate date_depart) {
+	    if (date_depart != null && (date_arrive == null || date_arrive.isBefore(date_depart))) {
+	        this.date_depart = date_depart;
+	    } else {
+	        throw new IllegalArgumentException("La date de départ est invalide.");
+	    }
 	}
 
 	/**

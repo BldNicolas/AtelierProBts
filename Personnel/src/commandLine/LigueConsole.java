@@ -2,7 +2,10 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import commandLineMenus.List;
 import commandLineMenus.Menu;
@@ -99,9 +102,18 @@ public class LigueConsole
 				{
 					ligue.addEmploye(getString("nom : "), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
+						getString("password : "),getDate("Date d'arrivée (dd-MM-yyyy) : "),getDate("Date de départ (dd-MM-yyyy) : "));
 				}
 		);
+	}
+	private LocalDate getDate(String prompt) {
+	    System.out.print(prompt);
+	    Scanner scanner = new Scanner(System.in);
+	    String dateString = scanner.nextLine();
+
+	    // Conversion de la chaîne en LocalDate
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	    return LocalDate.parse(dateString, formatter);
 	}
 	
 	private Menu gererEmployes(Ligue ligue)
