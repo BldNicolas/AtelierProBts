@@ -44,7 +44,6 @@ class testLigue
 	void getAdmin() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Barbecue");
-		//TODO : Ajouter les paramètres de dates
 		Employe employe = ligue.addEmploye("D'Arc", "Jeanne", "j.arc@weber.com", "gécho", LocalDate.now(), null);
 		ligue.setAdministrateur(employe);
 		assertEquals("D'Arc", ligue.getAdministrateur().getNom());
@@ -54,7 +53,6 @@ class testLigue
 	void setAdmin() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Tir à l'arc");
-		//TODO : Ajouter les paramètres de dates
 		Employe employe = ligue.addEmploye("DesBois", "Robin", "je.tire@pommes.com", "feu", LocalDate.now(), null);
 		ligue.setAdministrateur(employe);
 		assertEquals(employe, ligue.getAdministrateur());
