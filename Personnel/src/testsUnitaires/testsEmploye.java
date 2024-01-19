@@ -51,14 +51,14 @@ public class testsEmploye {
     @Test
     public void SetDateArrive() throws SauvegardeImpossible{
         LocalDate testDate = LocalDate.of(18, 1, 2024);
-        employe.setDate_arrive(testDate);
+        employe.setDateArrive(testDate);
         assertEquals(testDate, employe.getDateArrive());
     }
 
     @Test
     public void SetDateDepart() throws SauvegardeImpossible{
         LocalDate nouvelleDateDepart = LocalDate.of(1, 1, 2026);
-        employe.setDate_depart(nouvelleDateDepart);
+        employe.setDateDepart(nouvelleDateDepart);
         assertEquals(nouvelleDateDepart, employe.getDateDepart());
     }
     

@@ -109,13 +109,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate date_arrive, LocalDate date_depart)
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
 	{
-	    if (date_arrive != null && date_depart != null && date_arrive.isAfter(date_depart)) {
+	    if (dateArrive != null && dateDepart != null && dateArrive.isAfter(dateDepart)) {
 	        throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");
 	    }
 
-	    Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date_arrive, date_depart);
+	    Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
 	    employes.add(employe);
 	    return employe;
 	}
