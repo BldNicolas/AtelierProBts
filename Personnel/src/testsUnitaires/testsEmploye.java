@@ -9,7 +9,7 @@ import personnel.*;
 public class testsEmploye {
 	private Employe employe = new Employe();
 
-	//Initiaisation d'un bg
+	//Initiaisation d'un employe
     @Before
     public void setUp() {
         employe = new Employe(
@@ -19,8 +19,7 @@ public class testsEmploye {
                 "Ibrahimovic",
                 "zoumbacafe@pitch.com",
                 "original",
-                LocalDate.of(2023, 12, 31),
-                null);
+                LocalDate.now(), null);
     }
 
     @Test
