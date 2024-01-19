@@ -9,6 +9,19 @@ import personnel.*;
 public class testsEmploye {
 	private Employe employe = new Employe();
 
+	//Initiaisation d'un employe
+    @Before
+    public void setUp() {
+        employe = new Employe(
+                new GestionPersonnel(),
+                new Ligue("Elvis is the best"),
+                "TheRock",
+                "Ibrahimovic",
+                "zoumbacafe@pitch.com",
+                "original",
+                LocalDate.now(), null);
+    }
+
     @Test
     public void SetNom() throws SauvegardeImpossible{
         employe.setNom("Loup");
@@ -24,7 +37,7 @@ public class testsEmploye {
     @Test
     public void SetMail() throws SauvegardeImpossible{
         employe.setMail("lemail@gmal.com");
-        assertEquals("lemail@gmal.com, employe.getMail());
+        assertEquals("lemail@gmal.com", employe.getMail());
     }
 
     @Test
