@@ -14,11 +14,11 @@ public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
-	private LocalDate date_arrive, date_depart;
+	private LocalDate dateArrive, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrive, LocalDate date_depart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -26,8 +26,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
-		this.date_arrive = date_arrive;
-		this.date_depart = date_depart;
+		this.dateArrive = dateArrive;
+		this.dateDepart = dateDepart;
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		return date_arrive;
 	}
 
-	public void setDate_arrive(LocalDate date_arrive) {
+	public void setDateArrive(LocalDate date_arrive) {
 	    if (date_arrive != null && (date_depart == null || date_arrive.isBefore(date_depart))) {
 	        this.date_arrive = date_arrive;
 	    } else {
@@ -165,7 +165,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		return date_depart;
 	}
 
-	public void setDate_depart(LocalDate date_depart) {
+	public void setDateDepart(LocalDate date_depart) {
 	    if (date_depart != null && (date_arrive == null || date_arrive.isBefore(date_depart))) {
 	        this.date_depart = date_depart;
 	    } else {
