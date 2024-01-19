@@ -19,8 +19,8 @@ public class testsEmploye {
                 "Ibrahimovic",
                 "zoumbacafe@pitch.com",
                 "original",
-                LocalDate.of(2002, 1, 25),
-                LocalDate.of(2002, 10, 1));
+                LocalDate.of(25, 1, 2002),
+                LocalDate.of(1, 10, 2002));
     }
 
     //Test des setters
@@ -50,19 +50,18 @@ public class testsEmploye {
 
     @Test
     public void SetDateArrive() throws SauvegardeImpossible{
-        LocalDate testDate = LocalDate.of(2024, 1, 18);
+        LocalDate testDate = LocalDate.of(18, 1, 2024);
         employe.setDate_arrive(testDate);
         assertEquals(testDate, employe.getDateArrive());
     }
 
     @Test
     public void SetDateDepart() throws SauvegardeImpossible{
-        LocalDate nouvelleDateDepart = LocalDate.of(2026, 1, 1);
+        LocalDate nouvelleDateDepart = LocalDate.of(1, 1, 2026);
         employe.setDate_depart(nouvelleDateDepart);
         assertEquals(nouvelleDateDepart, employe.getDateDepart());
     }
     
     //Test des exceptions
-    @Test
-    public void 
+
 }
