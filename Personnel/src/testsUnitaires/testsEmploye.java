@@ -24,7 +24,7 @@ public class testsEmploye {
     @Test
     public void SetMail() throws SauvegardeImpossible{
         employe.setMail("lemail@gmal.com");
-        assertEquals("lemail@gmal.com, employe.getMail());
+        assertEquals("lemail@gmal.com", employe.getMail());
     }
 
     @Test
