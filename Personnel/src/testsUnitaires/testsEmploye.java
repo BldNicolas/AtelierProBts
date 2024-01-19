@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import personnel.*;
-/*
+
 public class testsEmploye {
 	private Employe employe = new Employe();
 
@@ -65,4 +65,4 @@ public class testsEmploye {
     //Test des exceptions
 
 }
-*/
+
