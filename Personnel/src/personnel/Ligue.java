@@ -106,20 +106,27 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param prenom le prénom de l'employé.
 	 * @param mail l'adresse mail de l'employé.
 	 * @param password le password de l'employé.
+	 * @param dateArrive la date d'arrivé.
+	 * @param dateDepart la date de départ.
 	 * @return l'employé créé.
 	 */
 
 	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
 	{
-	    if (dateArrive != null && dateDepart != null && dateArrive.isAfter(dateDepart)) {
-	        throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");
-	    }
+		if (dateArrive != null && dateDepart != null && dateArrive.isAfter(dateDepart)) {
+			throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");
+		}
 
-	    Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
-	    employes.add(employe);
-	    return employe;
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
+		employes.add(employe);
+		return employe;
 	}
-	
+
+	/**
+	 * Supprime un employé dans la ligue.
+	 * @param employe le nom de l'employe
+	 */
+
 	void remove(Employe employe)
 	{
 		employes.remove(employe);
