@@ -2,6 +2,10 @@ package testsUnitaires;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.junit.jupiter.api.Test;
 
 import personnel.*;
@@ -51,10 +55,44 @@ class testLigue
 	}
 
 	@Test
+	void getEmployes() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("Beau gosse");
+		Employe nico = ligue.addEmploye("Nico", "Nicolas", "ni.berlaud@gmail.com", "jsuibo", LocalDate.now(), null);
+		Employe val = ligue.addEmploye("Val", "Valentin", "val@gmail.com", "bogos", LocalDate.now(), null);
+		SortedSet<Employe> employesAttendus = new TreeSet<>(Arrays.asList(nico, val));
+		assertEquals(employesAttendus, ligue.getEmployes());
+	}
+
+
+	@Test
 	void addEmploye() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty", LocalDate.now(), null);
 		assertEquals(employe, ligue.getEmployes().first());
+	}
+
+	// TODO: Fix remove function
+	// @Test
+	// void remove() throws SauvegardeImpossible
+	// {
+	// 	Ligue ligue = gestionPersonnel.addLigue("Français");
+	// 	Employe macronEmmanuel = ligue.addEmploye("Macron", "Emmanuel", "je.suis@president.france", "jèmebrigi", LocalDate.now(), null);
+	// 	Employe poutineVladimir = ligue.addEmploye("Poutine", "Vladimir", "kalash.nikov@bim.boum", "vivléoursons", LocalDate.now(), null);
+	// 	ligue.remove(poutineVladimir);
+	// 	SortedSet<Employe> employesAttendus = new TreeSet<>(Arrays.asList(macronEmmanuel));
+	// 	assertEquals(employesAttendus, ligue.getEmployes());
+	// }
+
+	@Test
+	void remove() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("Vieux");
+		ligue.addEmploye("Dupont", "Dupont", "dupont.dupont@gmail.com", "dupondlove", LocalDate.now(), null);
+		ligue.addEmploye("Dupont", "Dupond", "dupont.dupond@gmail.com", "dupontlove", LocalDate.now(), null);
+		ligue.remove();
+		assertEquals(null, ligue.getEmployes());
+		assertEquals(null, ligue.getNom());
 	}
 }
