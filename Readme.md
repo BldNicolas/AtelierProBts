@@ -10,4 +10,4 @@
 
 - **Personnel 1 - MCD**
 
-    [MCD](asset/MCD.png)
+    [MCD](asset/MCD/MCD.svg)
