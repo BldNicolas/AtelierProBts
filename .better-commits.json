@@ -32,6 +32,12 @@
                 "emoji": "🚨"
             },
             {
+                "value": "move",
+                "label": "move",
+                "hint": "Move file or assets",
+                "emoji": "🚚"
+            },
+            {
                 "value": "other",
                 "label": "other",
                 "hint": "Any other changes",
