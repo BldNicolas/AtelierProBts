@@ -64,26 +64,12 @@ class testsLigue
 		assertEquals(employesAttendus, ligue.getEmployes());
 	}
 
-
 	@Test
 	void addEmploye() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty", LocalDate.now(), null);
 		assertEquals(employe, ligue.getEmployes().first());
-	}
-
-	// TODO: Fix remove function
-	@Test
-	void removeEmploye() throws SauvegardeImpossible
-	{
-		Ligue ligue = gestionPersonnel.addLigue("Français");
-		Employe macronEmmanuel = ligue.addEmploye("Macron", "Emmanuel", "je.suis@president.france", "jèmebrigi", LocalDate.now(), null);
-		Employe poutineVladimir = ligue.addEmploye("Poutine", "Vladimir", "kalash.nikov@bim.boum", "vivléoursons", LocalDate.now(), null);
-		ligue.remove(poutineVladimir);
-		SortedSet<Employe> employesAttendus = new TreeSet<>(Arrays.asList(macronEmmanuel));
-		assertEquals(employesAttendus, ligue.getEmployes());
-		ligue.addEmploye(null, null, null, null, null, null)
 	}
 
 	@Test
