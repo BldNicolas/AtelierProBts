@@ -1,4 +1,4 @@
-/src/bin
-/src/GestionPersonnel.srz
-/src/target/
+/Personnel/bin
+/Personnel/GestionPersonnel.srz
+/Personnel/target/
 .DS_Store
