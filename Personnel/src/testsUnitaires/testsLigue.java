@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import personnel.*;
 
-class testLigue
+class testsLigue
 {
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
 
@@ -74,16 +74,17 @@ class testLigue
 	}
 
 	// TODO: Fix remove function
-	// @Test
-	// void remove() throws SauvegardeImpossible
-	// {
-	// 	Ligue ligue = gestionPersonnel.addLigue("Français");
-	// 	Employe macronEmmanuel = ligue.addEmploye("Macron", "Emmanuel", "je.suis@president.france", "jèmebrigi", LocalDate.now(), null);
-	// 	Employe poutineVladimir = ligue.addEmploye("Poutine", "Vladimir", "kalash.nikov@bim.boum", "vivléoursons", LocalDate.now(), null);
-	// 	ligue.remove(poutineVladimir);
-	// 	SortedSet<Employe> employesAttendus = new TreeSet<>(Arrays.asList(macronEmmanuel));
-	// 	assertEquals(employesAttendus, ligue.getEmployes());
-	// }
+	@Test
+	void removeEmploye() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("Français");
+		Employe macronEmmanuel = ligue.addEmploye("Macron", "Emmanuel", "je.suis@president.france", "jèmebrigi", LocalDate.now(), null);
+		Employe poutineVladimir = ligue.addEmploye("Poutine", "Vladimir", "kalash.nikov@bim.boum", "vivléoursons", LocalDate.now(), null);
+		ligue.remove(poutineVladimir);
+		SortedSet<Employe> employesAttendus = new TreeSet<>(Arrays.asList(macronEmmanuel));
+		assertEquals(employesAttendus, ligue.getEmployes());
+		ligue.addEmploye(null, null, null, null, null, null)
+	}
 
 	@Test
 	void remove() throws SauvegardeImpossible
