@@ -17,7 +17,7 @@ public class testsEmploye {
 	@BeforeAll
     public void setUp() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("Panda2");
-    	employe = ligue.addEmploye("Le Chant", "Léo", "employe@coucou.com", "mdp", LocalDate.of(1, 1, 2018), LocalDate.of(1, 1, 2020));
+    	employe = ligue.addEmploye("Le Chant", "Léo", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
     }
 
     //Test des setters
@@ -82,6 +82,11 @@ public class testsEmploye {
 
     @Test
     void getDateArrive() throws SauvegardeImpossible{
-        assertEquals(LocalDate, employe);
+        assertEquals(LocalDate.of(2018, 1, 1), employe.getDateArrive());
+    }
+
+    @Test
+    void getDateDepart() throws SauvegardeImpossible{
+        assertEquals(LocalDate.of(2020, 1, 1), employe.getDateDepart());
     }
 }
