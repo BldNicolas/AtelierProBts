@@ -17,8 +17,9 @@ class testsLigue
 	@Test
 	void createLigue() throws SauvegardeImpossible
 	{
-		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		assertEquals("Fléchettes", ligue.getNom());
+		Ligue ligueFlechettes =  gestionPersonnel.addLigue("Fléchettes");
+		SortedSet<Ligue> ligues = gestionPersonnel.getLigues();
+		assertTrue(ligues.contains(ligueFlechettes));
 	}
 
 	@Test
@@ -75,11 +76,9 @@ class testsLigue
 	@Test
 	void remove() throws SauvegardeImpossible
 	{
-		Ligue ligue = gestionPersonnel.addLigue("Vieux");
-		ligue.addEmploye("Dupont", "Dupont", "dupont.dupont@gmail.com", "dupondlove", LocalDate.now(), null);
-		ligue.addEmploye("Dupont", "Dupond", "dupont.dupond@gmail.com", "dupontlove", LocalDate.now(), null);
-		ligue.remove();
-		assertEquals(null, ligue.getEmployes());
-		assertEquals(null, ligue.getNom());
+		Ligue ligueVieux = gestionPersonnel.addLigue("Vieux");
+		ligueVieux.remove();
+		SortedSet<Ligue> ligues = gestionPersonnel.getLigues();
+		assertFalse(ligues.contains(ligueVieux));
 	}
 }
