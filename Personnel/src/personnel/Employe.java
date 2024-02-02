@@ -147,11 +147,20 @@ public class Employe implements Serializable, Comparable<Employe>
 		return ligue;
 	}
 
-	
+	/**
+	 * Retourne la date à laquelle l'employé est arrivé.
+	 * @return la date à laquelle l'employé est arrivé.
+	 */
 	
 	public LocalDate getDateArrive() {
 		return dateArrive;
 	}
+
+	/**
+	 * Change la date d'arrivé de l'employé
+	 * @param dateArrive
+	 * @throws IllefalArgumentException
+	 */
 
 	public void setDateArrive(LocalDate dateArrive) {
 		if (dateArrive != null && (dateDepart == null || dateArrive.isBefore(dateDepart))) {
@@ -161,10 +170,20 @@ public class Employe implements Serializable, Comparable<Employe>
 		}
 	}
 
+	/**
+	 * Retourne la date de départ de l'employé
+	 * @return la date de départ de l'employé
+	 */
+
 	public LocalDate getDateDepart() {
 		return dateDepart;
 	}
 
+	/**
+	 * Change la date de départ de l'employé
+	 * @param dateDepart
+	 * @throws IllegalArgumentException
+	 */
 	public void setDateDepart(LocalDate dateDepart) {
 		if (dateDepart != null && (dateArrive == null || dateArrive.isBefore(dateDepart))) {
 			this.dateDepart = dateDepart;
@@ -176,6 +195,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Supprime l'employé. Si celui-ci est un administrateur, le root
 	 * récupère les droits d'administration sur sa ligue.
+	 * @throws ImpossibleDeSupprimerRoot
 	 */
 	
 	public void remove()
