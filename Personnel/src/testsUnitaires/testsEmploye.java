@@ -13,9 +13,11 @@ public class testsEmploye {
 	//Initiaisation d'un employe
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
 	static Employe employe;
+	
+	@BeforeAll
     public void setUp() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("Panda2");
-    	Employe employe = ligue.addEmploye("Le Chant", "Léo", "leo@coucou.com", "mdp", LocalDate.of(1, 1, 2018), LocalDate.of(1, 1, 2020));
+    	employe = ligue.addEmploye("Le Chant", "Léo", "employe@coucou.com", "mdp", LocalDate.of(1, 1, 2018), LocalDate.of(1, 1, 2020));
     }
 
     //Test des setters
@@ -58,6 +60,9 @@ public class testsEmploye {
     }
     
     //Test des getters
-
+    @Test
+    void getNom() throws SauvegardeImpossible{
+    	assertEquals("Le Chant", employe.getNom());
+    }
 }
 
