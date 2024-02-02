@@ -21,13 +21,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.password = password;
-		this.mail = mail;
-		this.ligue = ligue;
-		this.dateArrive = dateArrive;
-		this.dateDepart = dateDepart;
+		setNom(nom);
+		setPrenom(prenom);
+		setPassword(password);
+		setMail(mail);
+		setLigue(ligue);
+		setDateDepart(dateDepart);
+		setDateArrive(dateArrive);
 	}
 	
 	/**
@@ -147,6 +147,15 @@ public class Employe implements Serializable, Comparable<Employe>
 		return ligue;
 	}
 
+	/**
+	 * Change la ligue à laquelle l'utilisateur est affecté
+	 * @param ligue
+	 */
+
+	public void setLigue(Ligue ligue)
+	{
+		this.ligue = ligue;
+	}
 	/**
 	 * Retourne la date à laquelle l'employé est arrivé.
 	 * @return la date à laquelle l'employé est arrivé.
