@@ -3,10 +3,10 @@ import java.time.*;
 import java.io.Serializable;
 
 /**
- * Employé d'une ligue hébergée par la M2L. Certains peuvent 
+ * Employé d'une ligue hébergée par la M2L. Certains peuvent
  * être administrateurs des employés de leur ligue.
  * Un seul employé, rattaché à aucune ligue, est le root.
- * Il est impossible d'instancier directement un employé, 
+ * Il est impossible d'instancier directement un employé,
  * il faut passer la méthode {@link Ligue#addEmploye addEmploye}.
  */
 
@@ -31,11 +31,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Retourne vrai ssi l'employé est administrateur de la ligue 
+	 * Retourne vrai ssi l'employé est administrateur de la ligue
 	 * passée en paramètre.
-	 * @return vrai ssi l'employé est administrateur de la ligue 
+	 * @return vrai ssi l'employé est administrateur de la ligue
 	 * passée en paramètre.
-	 * @param ligue la ligue pour laquelle on souhaite vérifier si this 
+	 * @param ligue la ligue pour laquelle on souhaite vérifier si this
 	 * est l'admininstrateur.
 	 */
 	
@@ -56,7 +56,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	/**
 	 * Retourne le nom de l'employé.
-	 * @return le nom de l'employé. 
+	 * @return le nom de l'employé.
 	 */
 	
 	public String getNom()
@@ -86,7 +86,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	/**
 	 * Change le prénom de l'employé.
-	 * @param prenom le nouveau prénom de l'employé. 
+	 * @param prenom le nouveau prénom de l'employé.
 	 */
 
 	public void setPrenom(String prenom)
@@ -129,7 +129,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
 	/**
 	 * Change le password de l'employé.
-	 * @param password le nouveau password de l'employé. 
+	 * @param password le nouveau password de l'employé.
 	 */
 	
 	public void setPassword(String password)
@@ -154,11 +154,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	public void setDateArrive(LocalDate dateArrive) {
-	    if (dateArrive != null && (dateDepart == null || dateArrive.isBefore(dateDepart))) {
-	        this.dateArrive = dateArrive;
-	    } else {
-	        throw new IllegalArgumentException("La date d'arrivée est invalide.");
-	    }
+		if (dateArrive != null && (dateDepart == null || dateArrive.isBefore(dateDepart))) {
+			this.dateArrive = dateArrive;
+		} else {
+			throw new IllegalArgumentException("La date d'arrivée est invalide.");
+		}
 	}
 
 	public LocalDate getDateDepart() {
@@ -166,11 +166,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	public void setDateDepart(LocalDate dateDepart) {
-	    if (dateDepart != null && (dateArrive == null || dateArrive.isBefore(dateDepart))) {
-	        this.dateDepart = dateDepart;
-	    } else {
-	        throw new IllegalArgumentException("La date de départ est invalide.");
-	    }
+		if (dateDepart != null && (dateArrive == null || dateArrive.isBefore(dateDepart))) {
+			this.dateDepart = dateDepart;
+		} else {
+			throw new IllegalArgumentException("La date de départ est invalide.");
+		}
 	}
 
 	/**
