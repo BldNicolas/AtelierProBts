@@ -64,5 +64,24 @@ public class testsEmploye {
     void getNom() throws SauvegardeImpossible{
     	assertEquals("Le Chant", employe.getNom());
     }
-}
 
+    @Test
+    void getPrenom() throws SauvegardeImpossible{
+        assertEquals("Léo", employe.getPrenom());
+    }
+
+    @Test
+    void getMail() throws SauvegardeImpossible{
+        assertEquals("employe@coucou.com", employe.getMail());
+    }
+
+    @Test
+    void getLigue() throws SauvegardeImpossible{
+        assertEquals("Panda2", employe.getLigue());
+    }
+
+    @Test
+    void getDateArrive() throws SauvegardeImpossible{
+        assertEquals(LocalDate, employe);
+    }
+}

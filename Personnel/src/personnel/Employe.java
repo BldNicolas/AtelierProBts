@@ -168,7 +168,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date d'arrivé de l'employé
 	 * @param dateArrive
-	 * @throws IllefalArgumentException
+	 * @throws IllealArgumentException
 	 */
 
 	public void setDateArrive(LocalDate dateArrive) {
