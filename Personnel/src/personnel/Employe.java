@@ -172,11 +172,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 */
 
 	public void setDateArrive(LocalDate dateArrive) {
-		if (dateArrive != null && (dateDepart == null || dateArrive.isBefore(dateDepart))) {
-			this.dateArrive = dateArrive;
-		} else {
-			throw new IllegalArgumentException("La date d'arrivée est invalide.");
-		}
+		this.dateArrive = dateArrive;
 	}
 
 	/**
@@ -194,7 +190,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @throws IllegalArgumentException
 	 */
 	public void setDateDepart(LocalDate dateDepart) {
-		if (dateDepart != null && (dateArrive == null || dateArrive.isBefore(dateDepart))) {
+		if (dateDepart == null || (dateArrive != null && dateArrive.isBefore(dateDepart))) {
 			this.dateDepart = dateDepart;
 		} else {
 			throw new IllegalArgumentException("La date de départ est invalide.");
