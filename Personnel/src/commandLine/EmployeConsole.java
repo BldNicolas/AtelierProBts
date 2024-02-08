@@ -23,17 +23,32 @@ public class EmployeConsole
 		return (employe) -> editerEmploye(employe);
 	}
 
+	ListOption<Employe> changerAdministrateur(Ligue ligue)
+	{
+		return (employe) -> changerAdministrateur(ligue, employe);
+	}
+
 	Option editerEmploye(Employe employe)
 	{
-			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
-			menu.add(afficher(employe));
-			menu.add(changerNom(employe));
-			menu.add(changerPrenom(employe));
-			menu.add(changerMail(employe));
-			menu.add(changerPassword(employe));
-			menu.add(supprimerEmploye(employe));
-			menu.addBack("q");
-			return menu;
+		Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
+		menu.add(afficher(employe));
+		menu.add(changerNom(employe));
+		menu.add(changerPrenom(employe));
+		menu.add(changerMail(employe));
+		menu.add(changerPassword(employe));
+		menu.add(supprimerEmploye(employe));
+		menu.addBack("q");
+		return menu;
+	}
+
+	private Option changerAdministrateur(Ligue ligue, Employe employe)
+	{
+		return new Option
+		(
+			"Définir " + employe.getNom() + " administrateur",
+			"c",
+			() -> {ligue.setAdministrateur(employe);}
+			);
 	}
 
 	private Option changerNom(final Employe employe)
@@ -85,6 +100,4 @@ public class EmployeConsole
 			() -> {employe.remove();}
 		);
 	}
-	
-
 }
