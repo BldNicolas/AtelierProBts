@@ -26,8 +26,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		setPassword(password);
 		setMail(mail);
 		setLigue(ligue);
-		setDateDepart(dateDepart);
 		setDateArrive(dateArrive);
+		setDateDepart(dateDepart);
 	}
 	
 	/**
