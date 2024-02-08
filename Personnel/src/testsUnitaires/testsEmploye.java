@@ -2,8 +2,9 @@ package testsUnitaires;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import personnel.*;
@@ -12,41 +13,44 @@ public class testsEmploye {
 	
 	//Initiaisation d'un employe
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
-	static Employe employe;
 	
-	@BeforeAll
-    public void setUp() throws SauvegardeImpossible {
-    	Ligue ligue = gestionPersonnel.addLigue("Panda2");
-    	employe = ligue.addEmploye("Le Chant", "Léo", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
-    }
-
     //Test des setters
     @Test
     void SetNom() throws SauvegardeImpossible{
-		employe.setNom("Loup");
-        assertEquals("Loup", employe.getNom());
+		Ligue ligue = gestionPersonnel.addLigue("TestNom");
+		Employe employe = ligue.addEmploye("Dupont", "Jean", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
+		employe.setNom("Martin");
+        assertEquals("Martin", employe.getNom());
     }
 
     @Test
     void SetPrenom() throws SauvegardeImpossible{
-        employe.setPrenom("Garou");
-        assertEquals("Garou", employe.getPrenom());
+    	Ligue ligue = gestionPersonnel.addLigue("TestPrenom");
+    	Employe employe = ligue.addEmploye("Durand", "Pierre", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
+        employe.setPrenom("Paul");
+        assertEquals("Paul", employe.getPrenom());
     }
 
     @Test
     void SetMail() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestMail");
+    	Employe employe = ligue.addEmploye("Leclerc", "Philippe", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         employe.setMail("lemail@gmal.com");
         assertEquals("lemail@gmal.com", employe.getMail());
     }
 
     @Test
     void SetPassword() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestPassword");
+    	Employe employe = ligue.addEmploye("Lefebvre", "Sophie", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         employe.setPassword("gngngn12!++A");
         assertTrue(employe.checkPassword("gngngn12!++A"));
     }
 
     @Test
     void SetDateArrive() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestDateArrive");
+    	Employe employe = ligue.addEmploye("Petit", "Lucie", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         LocalDate testDate = LocalDate.of(18, 1, 2024);
         employe.setDateArrive(testDate);
         assertEquals(testDate, employe.getDateArrive());
@@ -54,39 +58,82 @@ public class testsEmploye {
 
     @Test
     void SetDateDepart() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestDateDepart");
+    	Employe employe = ligue.addEmploye("Jacques", "Marie", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         LocalDate nouvelleDateDepart = LocalDate.of(1, 1, 2026);
         employe.setDateDepart(nouvelleDateDepart);
         assertEquals(nouvelleDateDepart, employe.getDateDepart());
+    }
+
+    @Test
+    void setAdmin() throws SauvegardeImpossible {
+    	Ligue ligue = gestionPersonnel.addLigue("TestSetAdmin");
+        Employe employe1 = ligue.addEmploye("Riviere", "Julien", "cristiano@gmail.com", "cr7", LocalDate.now(), null);
+        Employe employe2 = ligue.addEmploye("Garcia", "Elena", "lionel@gmail.com", "leo10", LocalDate.now(), null);
+        ligue.setAdministrateur(employe1);
+        assertEquals(employe1, ligue.getAdministrateur());
     }
     
     //Test des getters
     @Test
     void getNom() throws SauvegardeImpossible{
-    	assertEquals("Le Chant", employe.getNom());
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetNom");
+    	Employe employe = ligue.addEmploye("Moreau", "Luc", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
+    	assertEquals("Moreau", employe.getNom());
     }
 
     @Test
     void getPrenom() throws SauvegardeImpossible{
-        assertEquals("Léo", employe.getPrenom());
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetPrenom");
+    	Employe employe = ligue.addEmploye("Gauthier", "Alice", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
+        assertEquals("Alice", employe.getPrenom());
     }
 
     @Test
     void getMail() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetMail");
+    	Employe employe = ligue.addEmploye("Roussel", "Eric", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         assertEquals("employe@coucou.com", employe.getMail());
     }
 
     @Test
     void getLigue() throws SauvegardeImpossible{
-        assertEquals("Panda2", employe.getLigue());
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetLigue");
+    	Employe employe = ligue.addEmploye("Blanchard", "Nicolas", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
+        assertEquals("TestGetLigue", employe.getLigue().getNom());
     }
 
     @Test
     void getDateArrive() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetDateArrive");
+    	Employe employe = ligue.addEmploye("Girard", "Julie", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         assertEquals(LocalDate.of(2018, 1, 1), employe.getDateArrive());
     }
 
     @Test
     void getDateDepart() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("TestGetDateDepart");
+    	Employe employe = ligue.addEmploye("Fournier", "Thomas", "employe@coucou.com", "mdp", LocalDate.of(2018, 1, 1), LocalDate.of(2020, 1, 1));
         assertEquals(LocalDate.of(2020, 1, 1), employe.getDateDepart());
+    }
+    
+    //Test suppression
+    @Test
+    void removeEmploye() throws SauvegardeImpossible {
+    	Ligue ligue = gestionPersonnel.addLigue("TestRemoveEmploye");
+    	Employe employe1 = ligue.addEmploye("Lambert", "Nathalie", "mjordan@gmail.com", "airjordan", LocalDate.now(), null);
+        employe1.remove();
+        assertNull(ligue.getEmployes());
+    }
+
+    @Test
+    void removeAdmin() throws SauvegardeImpossible {
+    	Ligue ligue = gestionPersonnel.addLigue("TestRemoveAdmin");
+        Employe employe1 = ligue.addEmploye("Bonnard", "Thierry", "cristiano@gmail.com", "cr7", LocalDate.now(), null);
+        Employe employe2 = ligue.addEmploye("Caron", "Marie", "lionel@gmail.com", "leo10", LocalDate.now(), null);
+        ligue.setAdministrateur(employe1);
+        ligue.setAdministrateur(null);
+        assertNull(ligue.getAdministrateur());
+        assertEquals(gestionPersonnel.getRoot(), ligue.getAdministrateur());
     }
 }
