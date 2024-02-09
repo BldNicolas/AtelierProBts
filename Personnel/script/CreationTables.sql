@@ -24,3 +24,19 @@ CREATE TABLE Employe (
     date_arrive DATE NOT NULL,
     date_depart DATE
 );
+
+CREATE TABLE Appartenir (
+    id_employe INT,
+    id_ligue INT,
+    FOREIGN KEY (id_employe) REFERENCES Employe(id_employe),
+    FOREIGN KEY (id_ligue) REFERENCES Ligue(id_ligue),
+    PRIMARY KEY (id_employe, id_ligue)
+);
+
+CREATE TABLE Administrer (
+    id_employe INT,
+    id_ligue INT,
+    FOREIGN KEY (id_employe) REFERENCES Employe(id_employe),
+    FOREIGN KEY (id_ligue) REFERENCES Ligue(id_ligue),
+    PRIMARY KEY (id_employe, id_ligue)
+);
