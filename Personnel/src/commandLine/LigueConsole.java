@@ -4,6 +4,7 @@ import static commandLineMenus.rendering.examples.util.InOut.getString;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,7 +75,7 @@ public class LigueConsole
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
 		menu.add(gererEmployes(ligue));
-		menu.add(changerAdministrateur(ligue));
+		//menu.add(changerAdministrateur(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
 		menu.addBack("q");
@@ -95,26 +96,42 @@ public class LigueConsole
 				);
 	}
 	
-	private Option ajouterEmploye(final Ligue ligue)
-	{
-		return new Option("Ajouter un employé", "a",
-				() -> 
-				{
-					ligue.addEmploye(getString("nom : "),
-						getString("prenom : "), getString("mail : "),
-						getString("password : "),getDate("Date d'arrivée (dd-MM-yyyy) : "),getDate("Date de départ (dd-MM-yyyy) : "));
-				}
-		);
-	}
-	private LocalDate getDate(String prompt) {
-	    System.out.print(prompt);
-	    Scanner scanner = new Scanner(System.in);
-	    String dateString = scanner.nextLine();
+	private Option ajouterEmploye(final Ligue ligue) {
+	    return new Option("Ajouter un employé", "a", () -> {
+	                ligue.addEmploye(getString("nom : "),
+	                        getString("prenom : "),
+	                        getString("mail : "),
+	                        getString("password : "),
+	    	                getDate("Date d'arrivée (dd-MM-yyyy) : "),
+	    	                getDate("Date de départ (dd-MM-yyyy) : "));
 
-	    // Conversion de la chaîne en LocalDate
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	    return LocalDate.parse(dateString, formatter);
+	    });
 	}
+
+
+
+	private LocalDate getDate(String prompt) {
+	    LocalDate date = null;
+	    boolean validDate = false;
+	    Scanner scanner = new Scanner(System.in);
+	    do {
+	        try {
+	            System.out.print(prompt);
+	            String dateString = scanner.nextLine();
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	            date = LocalDate.parse(dateString, formatter);
+	            validDate = true;
+	        } catch (DateTimeParseException | IllegalArgumentException e) {
+	            System.err.println("La date n'est pas au bon format ou La date d'arrivée ne peut pas être après la date de départ . "
+	            		+ "Veuillez réessayer sous le format suivant jj-mm-aaaa ou modifier la date.");   
+	        }
+	    } while (!validDate);
+	    return date;
+	}
+
+
+
+
 	
 	private Menu gererEmployes(Ligue ligue)
 	{
@@ -128,12 +145,7 @@ public class LigueConsole
 	
 	private List<Employe> changerAdministrateur(final Ligue ligue)
 	{
-		return new List<Employe>(
-			"Définir l'administrateur de la ligue",
-			"a",
-			() -> new ArrayList<Employe>(ligue.getEmployes()),
-			employeConsole.changerAdministrateur(ligue)
-		);
+		return null;
 	}
 
 	private List<Employe> selectionnerEmploye(final Ligue ligue)
@@ -148,4 +160,5 @@ public class LigueConsole
 	{
 		return new Option("Supprimer", "d", () -> {ligue.remove();});
 	}
+	
 }
