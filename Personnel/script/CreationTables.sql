@@ -7,10 +7,13 @@ Objectif : Ce script contient les requêtes de création des tables nécessaires
 
 CREATE DATABASE IF NOT EXISTS Atelier_BTS;
 USE Atelier_BTS;
-SET SESSION DATE_FORMAT = "%d-%m-%Y";
+
+/* Cette variable est seulement accessible en lecture dans mySQL donc impossible de le set de cette manière.
+*SET SESSION DATE_FORMAT = "%d-%m-%Y";
+*/
 
 CREATE TABLE Ligue (
-    id_ligue INT PRIMARY KEY,
+    id_ligue INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(256) NOT NULL
 );
 
