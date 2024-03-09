@@ -2,7 +2,7 @@
 Nom du script : CreationTables.sql
 Auteur : Djony
 Date de création : 2024-01-02
-Objectif : Ce script contient les requêtes de création des tables nécessaires pour le projet AtelierProBts.
+Objectif : Ce script contient les requêtes de création des tables nécessaires pour le projet VDNGestion.
 */
 
 CREATE DATABASE IF NOT EXISTS Atelier_BTS;
