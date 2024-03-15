@@ -5,8 +5,8 @@ Date de création : 2024-01-02
 Objectif : Ce script contient les requêtes de création des tables nécessaires pour le projet VDNGestion.
 */
 
-CREATE DATABASE IF NOT EXISTS Atelier_BTS;
-USE Atelier_BTS;
+CREATE DATABASE IF NOT EXISTS VDNGestion;
+USE VDNGestion;
 
 /* Cette variable est seulement accessible en lecture dans mySQL donc impossible de le set de cette manière.
 *SET SESSION DATE_FORMAT = "%d-%m-%Y";
