@@ -14,13 +14,14 @@ USE VDNGestion;
 
 CREATE TABLE Ligue (
     id_ligue INT PRIMARY KEY AUTO_INCREMENT,
-    id_admin INT REFERENCES Employe (id_employe)
+    id_admin INT,
+    FOREIGN KEY id_admin REFERENCES Employe (id_employe),
     nom VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE Employe (
     id_employe INT,
-    id_ligue_administree INT,
+    id_ligue INT,
     droit BOOL NOT NULL,
     nom VARCHAR(256) NOT NULL,
     prenom VARCHAR(256) NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE Employe (
     mail VARCHAR(256) NOT NULL,
     date_arrive DATE NOT NULL,
     date_depart DATE
-    PRIMARY KEY (id_employe, id_ligue_administree),
-    FOREIGN KEY id_ligue_administree REFERENCES Ligue(id_ligue)
+    PRIMARY KEY (id_employe),
+    FOREIGN KEY id_ligue REFERENCES Ligue(id_ligue)
 );
 
