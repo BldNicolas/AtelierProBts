@@ -14,16 +14,21 @@ USE Atelier_BTS;
 
 CREATE TABLE Ligue (
     id_ligue INT PRIMARY KEY AUTO_INCREMENT,
+    id_admin INT REFERENCES Employe (id_employe)
     nom VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE Employe (
-    id_employe INT PRIMARY KEY,
-    droit VARCHAR(256) NOT NULL,
+    id_employe INT,
+    id_ligue_administree INT,
+    droit BOOL NOT NULL,
     nom VARCHAR(256) NOT NULL,
     prenom VARCHAR(256) NOT NULL,
     password VARCHAR(256) NOT NULL,
     mail VARCHAR(256) NOT NULL,
     date_arrive DATE NOT NULL,
     date_depart DATE
+    PRIMARY KEY (id_employe, id_ligue_administree),
+    FOREIGN KEY id_ligue_administree REFERENCES Ligue(id_ligue)
 );
+
