@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import personnel.*;
 
-public class JDBC implements Passerelle 
+public class JDBC implements Passerelle
 {
 	Connection connection;
 
@@ -31,7 +31,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public GestionPersonnel getGestionPersonnel() 
+	public GestionPersonnel getGestionPersonnel()
 	{
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
 		try 
@@ -69,23 +69,23 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public int insert(Ligue ligue) throws SauvegardeImpossible 
+	public int insert(Ligue ligue) throws SauvegardeImpossible
 	{
-		try 
+		try
 		{
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement("insert into ligue (nom) values(?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction.setString(1, ligue.getNom());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
 			return id.getInt(1);
-		} 
-		catch (SQLException exception) 
+		}
+		catch (SQLException exception)
 		{
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
-		}		
+		}
 	}
 
 	public void remove(Ligue ligue) throws SauvegardeImpossible {

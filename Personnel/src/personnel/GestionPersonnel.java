@@ -7,10 +7,10 @@ import java.util.TreeSet;
 
 /**
  * Gestion du personnel. Un seul objet de cette classe existe.
- * Il n'est pas possible d'instancier directement cette classe, 
- * la méthode {@link #getGestionPersonnel getGestionPersonnel} 
+ * Il n'est pas possible d'instancier directement cette classe,
+ * la méthode {@link #getGestionPersonnel getGestionPersonnel}
  * le fait automatiquement et retourne toujours le même objet.
- * Dans le cas où {@link #sauvegarder()} a été appelé lors 
+ * Dans le cas où {@link #sauvegarder()} a été appelé lors
  * d'une exécution précédente, c'est l'objet sauvegardé qui est
  * retourné.
  */
@@ -21,9 +21,9 @@ public class GestionPersonnel implements Serializable
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
 	private Employe root = new Employe(this, null, "root", "", "", "toor",null,null);
-	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
-	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
+	public final static int SERIALIZATION = 1, JDBC = 2,
+			TYPE_PASSERELLE = JDBC; 
+	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();
 	
 	/**
 	 * Retourne l'unique instance de cette classe.
@@ -82,7 +82,7 @@ public class GestionPersonnel implements Serializable
 
 	public Ligue addLigue(String nom) throws SauvegardeImpossible
 	{
-		Ligue ligue = new Ligue(this, nom); 
+		Ligue ligue = new Ligue(this, nom);
 		ligues.add(ligue);
 		return ligue;
 	}
@@ -94,6 +94,9 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 
+	/*
+	 * Supprime une ligue localement et en base de donnée
+	 */
 	void remove(Ligue ligue) throws SauvegardeImpossible
 	{
 		ligues.remove(ligue);
@@ -104,7 +107,7 @@ public class GestionPersonnel implements Serializable
 	{
 		return passerelle.insert(ligue);
 	}
-
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.

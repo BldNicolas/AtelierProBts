@@ -24,7 +24,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	private GestionPersonnel gestionPersonnel;
 	
 	/**
-	 * Crée une ligue.
+	 * Crée une ligue dans la base de donnée.
 	 * @param nom le nom de la ligue.
 	 */
 	
@@ -33,6 +33,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		this(gestionPersonnel, -1, nom);
 		this.id = gestionPersonnel.insert(this);
 	}
+	
+	/**
+	 * Crée une ligue localement.
+	 * @param nom le nom de la ligue.
+	 */
 
 	Ligue(GestionPersonnel gestionPersonnel, int id, String nom)
 	{
