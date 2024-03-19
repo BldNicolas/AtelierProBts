@@ -69,7 +69,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public int insert(Ligue ligue) throws SauvegardeImpossible
+	public int insertLigue(Ligue ligue) throws SauvegardeImpossible
 	{
 		try
 		{
@@ -88,7 +88,7 @@ public class JDBC implements Passerelle
 		}
 	}
 
-	public void remove(Ligue ligue) throws SauvegardeImpossible {
+	public void removeLigue(Ligue ligue) throws SauvegardeImpossible {
 		try {
 			PreparedStatement instruction = connection.prepareStatement("DELETE FROM ligue WHERE nom=?");
 			instruction.setString(1, ligue.getNom());
