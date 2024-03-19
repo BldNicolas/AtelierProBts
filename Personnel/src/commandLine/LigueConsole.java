@@ -144,6 +144,15 @@ public class LigueConsole
 	
 	private Option supprimer(Ligue ligue)
 	{
-		return new Option("Supprimer", "d", () -> {ligue.remove();});
+		return new Option("Supprimer", "d", () ->
+		{
+			try
+			{
+				ligue.remove();
+			}
+			catch(SauvegardeImpossible exception) {
+				System.err.println("Impossible de sauvegarder cette ligue");
+			}
+		});
 	}
 }

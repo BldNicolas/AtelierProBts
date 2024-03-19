@@ -87,4 +87,15 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
+
+	public void remove(Ligue ligue) throws SauvegardeImpossible {
+		try {
+			PreparedStatement instruction = connection.prepareStatement("DELETE FROM ligue WHERE nom=?");
+			instruction.setString(1, ligue.getNom());
+			instruction.executeUpdate();
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}
+	}
 }
