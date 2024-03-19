@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS VDNGestion;
 USE VDNGestion;
 
 CREATE TABLE employe (
-    id_employe INT PRIMARY KEY,
+    id_employe INT PRIMARY KEY AUTO_INCREMENT,
     id_ligue INT,
     droit BOOL NOT NULL,
     nom VARCHAR(256) NOT NULL,
