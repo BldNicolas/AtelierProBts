@@ -127,6 +127,16 @@ public class Employe implements Serializable, Comparable<Employe>
 		return this.password.equals(password);
 	}
 
+/**
+	 * Retourne le password de l'employé.
+	 * @return le password de l'employé.
+	 */
+	
+	 public String getPassword()
+	 {
+		 return this.password;
+	 }
+
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé.
