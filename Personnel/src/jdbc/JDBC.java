@@ -100,7 +100,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public int insert(Employe employe) throws SauvegardeImpossible
+	public int insertEmploye(Employe employe) throws SauvegardeImpossible
 	{
 		try
 		{
