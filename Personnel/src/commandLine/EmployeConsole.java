@@ -10,6 +10,7 @@ import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
 import personnel.Ligue;
+import personnel.SauvegardeImpossible;
 
 public class EmployeConsole
 {
@@ -94,7 +95,11 @@ public class EmployeConsole
 		(
 			"Supprimer",
 			"d",
-			() -> {employe.remove();}
+			() -> {try {
+				employe.remove();
+			} catch (SauvegardeImpossible e) {
+				System.err.println("Impossible de supprimer cet employé");
+			}}
 		);
 	}
 }

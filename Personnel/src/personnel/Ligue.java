@@ -131,11 +131,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	/**
 	 * Supprime un employé dans la ligue.
 	 * @param employe le nom de l'employe
+	 * @throws SauvegardeImpossible
 	 */
 
-	void remove(Employe employe)
+	void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
 	{
 		employes.remove(employe);
+		gestionPersonnel.remove(employe, ligue);
 	}
 	
 	/**

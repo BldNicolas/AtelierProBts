@@ -7,4 +7,5 @@ public interface Passerelle
 	public int insertLigue(Ligue ligue) throws SauvegardeImpossible;
 	public int insertEmploye(Employe employe) throws SauvegardeImpossible;
 	public void removeLigue(Ligue ligue) throws SauvegardeImpossible;
+	public void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible;
 }
