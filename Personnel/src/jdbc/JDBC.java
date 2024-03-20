@@ -103,7 +103,7 @@ public class JDBC implements Passerelle
 		try
 		{
 			PreparedStatement instruction = connection.prepareStatement(
-				"INSERT INTO employe (id_ligue, droit, nom, prenom, password, mail, date_arrive) SELECT l.id_ligue, ?, ?, ?, ?, ?, ? FROM ligue l WHERE l.nom = ?;",
+				"INSERT INTO employe (id_ligue, droit, nom, prenom, password, mail, date_arrive, date_depart) SELECT l.id_ligue, ?, ?, ?, ?, ?, ?, ? FROM ligue l WHERE l.nom = ?;",
 				Statement.RETURN_GENERATED_KEYS
 			);
 			instruction.setObject(1, 1);
@@ -111,8 +111,9 @@ public class JDBC implements Passerelle
 			instruction.setString(3, employe.getPrenom());
 			instruction.setString(4, employe.getPassword());
 			instruction.setString(5, employe.getMail());
-			instruction.setObject(6, employe.getDateArrive());
-			instruction.setString(7, ligue.getNom());
+			instruction.setDate(6, java.sql.Date.valueOf(employe.getDateArrive()));
+			instruction.setDate(7, java.sql.Date.valueOf(employe.getDateDepart()));
+			instruction.setString(8, ligue.getNom());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
