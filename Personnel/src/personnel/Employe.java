@@ -1,7 +1,8 @@
 package personnel;
 import java.time.*;
 import java.io.Serializable;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent
  * être administrateurs des employés de leur ligue.
@@ -30,6 +31,19 @@ public class Employe implements Serializable, Comparable<Employe>
 		setDateArrive(dateArrive);
 		setDateDepart(dateDepart);
 	}
+	
+	Employe(GestionPersonnel gestionPersonnel, String nom, String prenom, String mail, String password) {
+	    this(gestionPersonnel, null, nom, prenom, mail, password, null, null);
+	    
+	    if (estRoot()) {
+	        try {
+	            id = gestionPersonnel.insertEmploye(this);
+	        } catch (SauvegardeImpossible e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+    
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue
@@ -137,7 +151,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		this.password= password;
 	}
-
+	
+	public String getPassword() {
+		return password;
+	}
+	
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
 	 * @return la ligue à laquelle l'employé est affecté.
@@ -236,4 +254,7 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
+
+
+	
 }

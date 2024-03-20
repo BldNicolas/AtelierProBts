@@ -4,7 +4,7 @@ USE VDNGestion;
 CREATE TABLE employe (
     id_employe INT PRIMARY KEY AUTO_INCREMENT,
     id_ligue INT,
-    droit BOOL NOT NULL,
+    droit BOOLEAN NOT NULL,
     nom VARCHAR(256) NOT NULL,
     prenom VARCHAR(256) NOT NULL,
     password VARCHAR(256) NOT NULL,
