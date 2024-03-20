@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -20,7 +21,8 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
-	private Employe root = new Employe(this, null, "root", "", "", "toor",null,null);
+	private Employe root;
+	private SortedSet<Employe> employes;
 	public final static int SERIALIZATION = 1, JDBC = 2,
 			TYPE_PASSERELLE = JDBC; 
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();
@@ -47,7 +49,12 @@ public class GestionPersonnel implements Serializable
 		if (gestionPersonnel != null)
 			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
-		gestionPersonnel = this;
+		try {
+			gestionPersonnel = this;
+			addRoot();
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void sauvegarder() throws SauvegardeImpossible
@@ -109,7 +116,6 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	int insertEmploye(Employe employe) throws SauvegardeImpossible
-
 	{
 		return passerelle.insertEmploye(employe);
 	}
@@ -121,6 +127,14 @@ public class GestionPersonnel implements Serializable
 	
 	public Employe getRoot()
 	{
+		return root;
+	}
+
+	private Employe addRoot() throws SauvegardeImpossible
+	{
+		LocalDate dateArrive = LocalDate.of(0001, 01, 01);
+		LocalDate dateDepart = LocalDate.of(9999, 01, 01);
+		this.root = new Employe(this,  null, "root", "", "", "toor", dateArrive, dateDepart);
 		return root;
 	}
 }

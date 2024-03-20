@@ -114,9 +114,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param dateArrive la date d'arrivé.
 	 * @param dateDepart la date de départ.
 	 * @return l'employé créé.
+	 * @throws SauvegardeImpossible 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{
 		if (dateArrive != null && dateDepart != null && dateArrive.isAfter(dateDepart)) {
 			throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");

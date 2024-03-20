@@ -15,14 +15,23 @@ public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
-	private int id;
+	private int id = -1;
 	private LocalDate dateArrive, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
+
+	/*
+	 * Créer un employé dans
+	 */
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{
-		this.gestionPersonnel = gestionPersonnel;
+		this(gestionPersonnel, -1, ligue,  nom, prenom, mail, password, dateArrive, dateDepart);
+		this.id = gestionPersonnel.insertEmploye(this);
+	}
+	
+	Employe(GestionPersonnel gestionPersonnel, int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) {
+	    this.gestionPersonnel = gestionPersonnel;
 		setNom(nom);
 		setPrenom(prenom);
 		setPassword(password);
@@ -30,18 +39,6 @@ public class Employe implements Serializable, Comparable<Employe>
 		setLigue(ligue);
 		setDateArrive(dateArrive);
 		setDateDepart(dateDepart);
-	}
-	
-	Employe(GestionPersonnel gestionPersonnel, String nom, String prenom, String mail, String password) {
-	    this(gestionPersonnel, null, nom, prenom, mail, password, null, null);
-	    
-	    if (estRoot()) {
-	        try {
-	            id = gestionPersonnel.insertEmploye(this);
-	        } catch (SauvegardeImpossible e) {
-	            e.printStackTrace();
-	        }
-	    }
 	}
     
 	
