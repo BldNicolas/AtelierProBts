@@ -105,7 +105,7 @@ public class JDBC implements Passerelle
 		try
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into ligue (nom) values(?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement("INSERT INTO employe (id_ligue, droit, nom, prenom, password, mail, date_arrive) SELECT l.id_ligue, ?, ?, ?, ?, ?, ? FROM ligue l WHERE l.nom = ?;", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, employe.getNom());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
