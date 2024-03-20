@@ -97,12 +97,16 @@ public class LigueConsole
 	
 	private Option ajouterEmploye(final Ligue ligue) {
 	    return new Option("Ajouter un employé", "a", () -> {
-	                ligue.addEmploye(getString("nom : "),
-	                        getString("prenom : "),
-	                        getString("mail : "),
-	                        getString("password : "),
-	    	                getDate("Date d'arrivée (dd-MM-yyyy) : "),
-	    	                getDate("Date de départ (dd-MM-yyyy) : "));
+	                try {
+						ligue.addEmploye(getString("nom : "),
+						        getString("prenom : "),
+						        getString("mail : "),
+						        getString("password : "),
+						        getDate("Date d'arrivée (dd-MM-yyyy) : "),
+						        getDate("Date de départ (dd-MM-yyyy) : "));
+					} catch (SauvegardeImpossible e) {
+						System.err.println("L'ajout de l'employé a échoué.");
+					}
 	    });
 	}
 	private LocalDate getDate(String prompt) {
