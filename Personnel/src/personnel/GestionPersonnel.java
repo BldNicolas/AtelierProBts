@@ -49,12 +49,7 @@ public class GestionPersonnel implements Serializable
 		if (gestionPersonnel != null)
 			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
-		try {
-			gestionPersonnel = this;
-			addRoot();
-		} catch (SauvegardeImpossible e) {
-			e.printStackTrace();
-		}
+		gestionPersonnel = this;
 	}
 	
 	public void sauvegarder() throws SauvegardeImpossible
@@ -174,8 +169,6 @@ public class GestionPersonnel implements Serializable
 	 */
 	public void addRoot() throws SauvegardeImpossible
 	{
-		LocalDate dateArrive = LocalDate.of(0001, 01, 01);
-		LocalDate dateDepart = LocalDate.of(9999, 01, 01);
-		this.root = new Employe(this,  null, "root", "", "", "toor", dateArrive, dateDepart);
+		this.root = new Employe(this, 1, null, "root", "", "", "toor", LocalDate.of(0001, 01, 01), LocalDate.of(9999, 01, 01));
 	}
 }

@@ -38,7 +38,7 @@ public class JDBC implements Passerelle
 	public GestionPersonnel getGestionPersonnel()
 	{
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
-		//TODO getRoot(gestionPersonnel);
+		getRoot(gestionPersonnel);
 		getLigue(gestionPersonnel);
 		return gestionPersonnel;
 	}
@@ -193,6 +193,31 @@ public class JDBC implements Passerelle
 		} catch (SQLException e)
 		{
 			System.out.println(e);
+		}
+		return gestionPersonnel;
+	}
+
+	/**
+	 * Si non présent, insert le root dans la BDD, puis l'ajoute localement
+	 * @param gestionPersonnel
+	 * @return
+	 */
+	public GestionPersonnel getRoot(GestionPersonnel gestionPersonnel)
+	{
+		try
+		{
+			String requete = "SELECT * FROM employe WHERE id_ligue IS NULL;";
+			Statement instruction = connection.createStatement();
+			ResultSet root = instruction.executeQuery(requete);
+			if (!root.next())
+			{
+				requete = "INSERT INTO employe (id_employe, droit, nom, prenom, password, mail, date_arrive) VALUES (1, TRUE, \"root\", \"\", \"toor\", \"\", \"0001-01-01\");";
+				instruction.executeUpdate(requete);
+			}
+			gestionPersonnel.addRoot();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return gestionPersonnel;
 	}
