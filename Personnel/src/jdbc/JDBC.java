@@ -136,13 +136,14 @@ public class JDBC implements Passerelle
 		}
 	}
 
-	public void remove(Employe employe) throws SauvegardeImpossible
+	public void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
 	{
 		try
 		{
-			PreparedStatement instruction = connection.prepareStatement("DELETE FROM employe WHERE nom = ? AND prenom = ?;");
+			PreparedStatement instruction = connection.prepareStatement("DELETE FROM employe WHERE nom = ? AND prenom = ? AND id_ligue = (SELECT id_ligue FROM ligue WHERE ligue.nom = ?)");
 			instruction.setString(1, employe.getNom());
 			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getLigue().getNom());
 			instruction.executeUpdate();
 		} catch (SQLException exception)
 		{
