@@ -147,6 +147,12 @@ public class JDBC implements Passerelle
 		}
 	}
 
+	/**
+	 * Récupère les ligues et les employés stocké en base de donnée et les stocke localement dans
+	 * l'objet gestionPersonnel
+	 * @param gestionPersonnel
+	 * @return gestionPersonnel
+	 */
 	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel)
 	{
 		try
@@ -167,6 +173,13 @@ public class JDBC implements Passerelle
 		return gestionPersonnel;
 	}
 
+	/**
+	 * Récupère les employés stocké en base de donnée et les stocke localement dans l'objet
+	 * gestionPersonnel
+	 * @param gestionPersonnel
+	 * @param ligue dans laquelle on doit chercher l'employé
+	 * @return gestionPersonnel
+	 */
 	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue)
 	{
 		try
@@ -184,6 +197,11 @@ public class JDBC implements Passerelle
 		return gestionPersonnel;
 	}
 
+	/**
+	 * Convertit une date de base de donnée vers date java
+	 * @param dateFromDB format SQL
+	 * @return date format java
+	 */
 	public LocalDate sqlDateToLocalDate(Date dateFromDB)
 	{
 		Calendar calendar = new GregorianCalendar();
