@@ -1,8 +1,6 @@
 package personnel;
 import java.time.*;
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent
  * être administrateurs des employés de leur ligue.
@@ -21,22 +19,44 @@ public class Employe implements Serializable, Comparable<Employe>
 	private GestionPersonnel gestionPersonnel;
 	
 
-	/*
-	 * Créer un employé dans
+	/**
+	 * Insère un employé dans la base de donnée et l'ajoute en local
+	 * @param gestionPersonnel
+	 * @param ligue de l'employé
+	 * @param nom de l'employé
+	 * @param prenom de l'employé
+	 * @param mail de l'employé
+	 * @param password de l'employé
+	 * @param dateArrive de l'employé
+	 * @param dateDepart de l'employé
+	 * @throws SauvegardeImpossible
 	 */
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{
 		this(gestionPersonnel, -1, ligue,  nom, prenom, mail, password, dateArrive, dateDepart);
-		this.id = gestionPersonnel.insertEmploye(this);
+		this.id = gestionPersonnel.insert(this);
 	}
 	
+	/**
+	 * Ajoute un employé localement
+	 * @param gestionPersonnel
+	 * @param id de l'employé
+	 * @param ligue de l'employé
+	 * @param nom de l'employé
+	 * @param prenom de l'employé
+	 * @param mail de l'employé
+	 * @param password de l'employé
+	 * @param dateArrive de l'employé
+	 * @param dateDepart de l'employé
+	 */
 	Employe(GestionPersonnel gestionPersonnel, int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) {
 	    this.gestionPersonnel = gestionPersonnel;
+		this.id = id;
+		setLigue(ligue);
 		setNom(nom);
 		setPrenom(prenom);
-		setPassword(password);
 		setMail(mail);
-		setLigue(ligue);
+		setPassword(password);
 		setDateArrive(dateArrive);
 		setDateDepart(dateDepart);
 	}

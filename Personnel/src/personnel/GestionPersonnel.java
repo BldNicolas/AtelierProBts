@@ -87,6 +87,12 @@ public class GestionPersonnel implements Serializable
 		return Collections.unmodifiableSortedSet(ligues);
 	}
 
+	/**
+	 * Insère la ligue en base de donnée et l'ajoute localement
+	 * @param nom de la ligue
+	 * @return ligue créée
+	 * @throws SauvegardeImpossible
+	 */
 	public Ligue addLigue(String nom) throws SauvegardeImpossible
 	{
 		Ligue ligue = new Ligue(this, nom);
@@ -94,6 +100,12 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 	
+	/**
+	 * Ajoute la ligue localement
+	 * @param id de la ligue
+	 * @param nom de la ligue
+	 * @return ligue créée
+	 */
 	public Ligue addLigue(int id, String nom)
 	{
 		Ligue ligue = new Ligue(this, id, nom);
@@ -101,25 +113,46 @@ public class GestionPersonnel implements Serializable
 		return ligue;
 	}
 
-	/*
-	 * Supprime une ligue localement et en base de donnée
+	/**
+	 * Insère la ligue en base de donnée
+	 * @param ligue
+	 * @return
+	 * @throws SauvegardeImpossible
+	 */
+	int insert(Ligue ligue) throws SauvegardeImpossible
+	{
+		return passerelle.insert(ligue);
+	}
+
+	/**
+	 * Supprime la ligue localement et en base de donnée
+	 * @param ligue à supprimer
+	 * @throws SauvegardeImpossible
 	 */
 	void remove(Ligue ligue) throws SauvegardeImpossible
 	{
 		ligues.remove(ligue);
-		passerelle.removeLigue(ligue);
+		passerelle.remove(ligue);
 	}
 	
-	int insertLigue(Ligue ligue) throws SauvegardeImpossible
+	/**
+	 * Insère un employé en base de donnée
+	 * @param employe à ajouter en base de donnée
+	 * @return l'employé ajouté
+	 * @throws SauvegardeImpossible
+	 */
+	int insert(Employe employe) throws SauvegardeImpossible
 	{
-		return passerelle.insertLigue(ligue);
-	}
-	
-	int insertEmploye(Employe employe) throws SauvegardeImpossible
-	{
-		return passerelle.insertEmploye(employe);
+		return passerelle.insert(employe);
 	}
 
+
+	/**
+	 * Supprimer l'employé en base de donnée
+	 * @param employe
+	 * @param ligue
+	 * @throws SauvegardeImpossible
+	 */
 	void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
 	{
 		passerelle.remove(employe, ligue);
@@ -140,6 +173,5 @@ public class GestionPersonnel implements Serializable
 		LocalDate dateArrive = LocalDate.of(0001, 01, 01);
 		LocalDate dateDepart = LocalDate.of(9999, 01, 01);
 		this.root = new Employe(this,  null, "root", "", "", "toor", dateArrive, dateDepart);
-		return root;
 	}
 }
