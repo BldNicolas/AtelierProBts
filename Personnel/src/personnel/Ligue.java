@@ -105,7 +105,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	}
 
 	/**
-	 * Ajoute un employé dans la ligue. Cette méthode
+	 * Insère l'employé en base de donnée et l'ajoute localement. Cette méthode
 	 * est le seul moyen de créer un employé.
 	 * @param nom le nom de l'employé.
 	 * @param prenom le prénom de l'employé.
@@ -124,6 +124,24 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		}
 
 		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
+		employes.add(employe);
+		return employe;
+	}
+
+	/**
+	 * Ajoute un employé localement
+	 * @param id de l'employé
+	 * @param nom de l'employé
+	 * @param prenom de l'employé
+	 * @param mail de l'employé
+	 * @param password de l'employé
+	 * @param dateArrive de l'employé
+	 * @param dateDepart de l'employé
+	 * @return l'employé créé
+	 */
+	public Employe addEmploye(int id, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
+	{
+		Employe employe = new Employe(gestionPersonnel, id, null, nom, prenom, mail, password, dateArrive, dateDepart);
 		employes.add(employe);
 		return employe;
 	}

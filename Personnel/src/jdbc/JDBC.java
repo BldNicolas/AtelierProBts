@@ -3,9 +3,13 @@ package jdbc;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import personnel.*;
 
@@ -34,18 +38,8 @@ public class JDBC implements Passerelle
 	public GestionPersonnel getGestionPersonnel()
 	{
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
-		try 
-		{
-			String requete = "select * from ligue";
-			Statement instruction = connection.createStatement();
-			ResultSet ligues = instruction.executeQuery(requete);
-			while (ligues.next())
-				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
-		}
-		catch (SQLException e)
-		{
-			System.out.println(e);
-		}
+		//TODO getRoot(gestionPersonnel);
+		getLigue(gestionPersonnel);
 		return gestionPersonnel;
 	}
 
@@ -136,6 +130,7 @@ public class JDBC implements Passerelle
 		}
 	}
 
+	//TODO: enlever le param Ligue ligue
 	public void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
 	{
 		try
@@ -150,5 +145,54 @@ public class JDBC implements Passerelle
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
 		}
+	}
+
+	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel)
+	{
+		try
+		{
+			Ligue ligue = null;
+			String requete = "select * from ligue";
+			Statement instruction = connection.createStatement();
+			ResultSet ligues = instruction.executeQuery(requete);
+			while (ligues.next())
+			{
+				ligue = gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
+				getEmploye(gestionPersonnel, ligue);
+			}
+		} catch (SQLException e)
+		{
+			System.out.println(e);
+		}
+		return gestionPersonnel;
+	}
+
+	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue)
+	{
+		try
+		{
+			String requete = "SELECT * FROM employe WHERE id_ligue = (SELECT ligue.id_ligue FROM ligue WHERE ligue.nom = \"" + ligue.getNom() + "\");";
+			Statement instruction = connection.createStatement();
+			ResultSet employes = instruction.executeQuery(requete);
+			while (employes.next()) {
+				ligue.addEmploye(employes.getInt(1),employes.getString(4), employes.getString(5), employes.getString(7), employes.getString(6), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
+			}
+		} catch (SQLException e)
+		{
+			System.out.println(e);
+		}
+		return gestionPersonnel;
+	}
+
+	public LocalDate sqlDateToLocalDate(Date dateFromDB)
+	{
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(dateFromDB);
+		LocalDate localDate = LocalDate.of(
+			calendar.get(Calendar.YEAR),
+			calendar.get(Calendar.MONTH) + 1,
+			calendar.get(Calendar.DAY_OF_MONTH)
+		);
+		return localDate;
 	}
 }
