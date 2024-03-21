@@ -2,9 +2,6 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
-import java.util.ArrayList;
-
-import commandLineMenus.List;
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;

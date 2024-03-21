@@ -2,8 +2,6 @@ package testsUnitaires;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +67,6 @@ public class testsEmploye {
     void setAdmin() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("TestSetAdmin");
         Employe employe1 = ligue.addEmploye("Riviere", "Julien", "cristiano@gmail.com", "cr7", LocalDate.now(), null);
-        Employe employe2 = ligue.addEmploye("Garcia", "Elena", "lionel@gmail.com", "leo10", LocalDate.now(), null);
         ligue.setAdministrateur(employe1);
         assertEquals(employe1, ligue.getAdministrateur());
     }
@@ -130,7 +127,6 @@ public class testsEmploye {
     void removeAdmin() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("TestRemoveAdmin");
         Employe employe1 = ligue.addEmploye("Bonnard", "Thierry", "cristiano@gmail.com", "cr7", LocalDate.now(), null);
-        Employe employe2 = ligue.addEmploye("Caron", "Marie", "lionel@gmail.com", "leo10", LocalDate.now(), null);
         ligue.setAdministrateur(employe1);
         ligue.setAdministrateur(null);
         assertNull(ligue.getAdministrateur());

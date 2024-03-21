@@ -168,7 +168,11 @@ public class GestionPersonnel implements Serializable
 		return root;
 	}
 
-	private Employe addRoot() throws SauvegardeImpossible
+	/**
+	 * Ajoute le root localement
+	 * @throws SauvegardeImpossible
+	 */
+	public void addRoot() throws SauvegardeImpossible
 	{
 		LocalDate dateArrive = LocalDate.of(0001, 01, 01);
 		LocalDate dateDepart = LocalDate.of(9999, 01, 01);
