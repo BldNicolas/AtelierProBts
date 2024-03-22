@@ -120,15 +120,12 @@ public class JDBC implements Passerelle
 		}
 	}
 
-	//TODO: enlever le param Ligue ligue
-	public void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
+	public void remove(Employe employe) throws SauvegardeImpossible
 	{
 		try
 		{
-			PreparedStatement instruction = connection.prepareStatement("DELETE FROM employe WHERE nom = ? AND prenom = ? AND id_ligue = (SELECT id_ligue FROM ligue WHERE ligue.nom = ?)");
-			instruction.setString(1, employe.getNom());
-			instruction.setString(2, employe.getPrenom());
-			instruction.setString(3, employe.getLigue().getNom());
+			PreparedStatement instruction = connection.prepareStatement("DELETE FROM employe WHERE id_employe = ?");
+			instruction.setInt(1, employe.id);
 			instruction.executeUpdate();
 		} catch (SQLException exception)
 		{

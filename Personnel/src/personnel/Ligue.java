@@ -17,7 +17,7 @@ import java.util.TreeSet;
 public class Ligue implements Serializable, Comparable<Ligue>
 {
 	private static final long serialVersionUID = 1L;
-	private int id = -1;
+	public int id = -1;
 	private String nom;
 	private SortedSet<Employe> employes;
 	private Employe administrateur;
@@ -152,10 +152,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @throws SauvegardeImpossible
 	 */
 
-	void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
+	void remove(Employe employe) throws SauvegardeImpossible
 	{
 		employes.remove(employe);
-		gestionPersonnel.remove(employe, ligue);
+		gestionPersonnel.remove(employe);
 	}
 	
 	/**

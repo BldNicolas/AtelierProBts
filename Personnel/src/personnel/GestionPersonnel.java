@@ -145,12 +145,11 @@ public class GestionPersonnel implements Serializable
 	/**
 	 * Supprimer l'employé en base de donnée
 	 * @param employe
-	 * @param ligue
 	 * @throws SauvegardeImpossible
 	 */
-	void remove(Employe employe, Ligue ligue) throws SauvegardeImpossible
+	void remove(Employe employe) throws SauvegardeImpossible
 	{
-		passerelle.remove(employe, ligue);
+		passerelle.remove(employe);
 	}
 	
 	/**
