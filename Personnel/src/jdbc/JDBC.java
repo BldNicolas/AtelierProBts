@@ -122,6 +122,28 @@ public class JDBC implements Passerelle
 		return gestionPersonnel;
 	}
 
+	/**
+	 * Met à jour la ligue en base de donnée
+	 * @param ligue
+	 * @throws SauvegardeImpossible
+	 */
+	public void update(Ligue ligue) throws SauvegardeImpossible
+	{
+		try
+		{
+			PreparedStatement instruction = connection.prepareStatement(
+				"UPDATE ligue SET id_admin = ?, nom = ? WHERE id_ligue = ?"
+				);
+			instruction.setInt(1, ligue.getAdministrateur().id);
+			instruction.setString(2, ligue.getNom());
+			instruction.setInt(3, ligue.id);
+			instruction.executeUpdate();
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}
+	}
+
 	public int insert(Employe employe) throws SauvegardeImpossible
 	{
 		try

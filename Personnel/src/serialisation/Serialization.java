@@ -62,4 +62,16 @@ public class Serialization implements personnel.Passerelle
 	public void remove(Ligue ligue) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void remove(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'remove'");
+	}
+
+	@Override
+	public void update(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'update'");
+	}
 }

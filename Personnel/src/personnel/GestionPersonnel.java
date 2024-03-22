@@ -129,6 +129,16 @@ public class GestionPersonnel implements Serializable
 		ligues.remove(ligue);
 		passerelle.remove(ligue);
 	}
+
+	/**
+	 * Met à jour la base de donnée
+	 * @param ligue
+	 * @throws SauvegardeImpossible
+	 */
+	void update(Ligue ligue) throws SauvegardeImpossible
+	{
+		passerelle.update(ligue);
+	}
 	
 	/**
 	 * Insère un employé en base de donnée

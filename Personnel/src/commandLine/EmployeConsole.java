@@ -41,9 +41,14 @@ public class EmployeConsole
 		return new Option
 		(
 			"Définir " + employe.getNom() + " administrateur",
-			"c",
-			() -> {ligue.setAdministrateur(employe);}
-			);
+			"c", () -> {
+				try {
+					ligue.setAdministrateur(employe);
+				} catch (SauvegardeImpossible e) {
+					System.err.println("Erreur lors du changement de l'administrateur");
+				}
+			}
+		);
 	}
 
 	private Option changerNom(final Employe employe)

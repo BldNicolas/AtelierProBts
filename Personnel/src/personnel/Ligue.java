@@ -59,13 +59,14 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	}
 
 	/**
-	 * Change le nom.
+	 * Change le nom localement et en base de donnée.
 	 * @param nom le nouveau nom de la ligue.
+	 * @throws SauvegardeImpossible
 	 */
-
-	public void setNom(String nom)
+	public void setNom(String nom) throws SauvegardeImpossible
 	{
 		this.nom = nom;
+		gestionPersonnel.update(this);
 	}
 
 	/**
@@ -82,16 +83,17 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * Fait de administrateur l'administrateur de la ligue.
 	 * Lève DroitsInsuffisants si l'administrateur n'est pas
 	 * un employé de la ligue ou le root. Révoque les droits de l'ancien
-	 * administrateur.
+	 * administrateur. Modification en local et en base de donnée.
 	 * @param administrateur le nouvel administrateur de la ligue.
+	 * @throws SauvegardeImpossible
 	 */
-	
-	public void setAdministrateur(Employe administrateur)
+	public void setAdministrateur(Employe administrateur) throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
 		this.administrateur = administrateur;
+		gestionPersonnel.update(this);
 	}
 
 	/**
