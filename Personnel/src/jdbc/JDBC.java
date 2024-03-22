@@ -98,28 +98,18 @@ public class JDBC implements Passerelle
 		try
 		{
 			PreparedStatement instruction;
-			if (employe.getLigue() == null)
-			{
-				instruction = connection.prepareStatement(
-				"INSERT INTO employe (droit, prenom, nom, password, mail, date_arrive, date_depart) VALUES(?, ?, ?, ?, ?, ?, ?);",
-				Statement.RETURN_GENERATED_KEYS
-				);
-				instruction.setObject(1, true);
-			} else
-			{
-				instruction = connection.prepareStatement(
-				"INSERT INTO employe (id_ligue, droit, prenom, nom, password, mail, date_arrive, date_depart) SELECT l.id_ligue, ?, ?, ?, ?, ?, ?, ? FROM ligue l WHERE l.nom = ?;",
-				Statement.RETURN_GENERATED_KEYS
-				);
-				instruction.setObject(1, false);
-				instruction.setString(8, employe.getLigue().getNom());
-			}
-			instruction.setString(2, employe.getPrenom());
-			instruction.setString(3, employe.getNom());
-			instruction.setString(4, employe.getPassword());
-			instruction.setString(5, employe.getMail());
-			instruction.setDate(6, java.sql.Date.valueOf(employe.getDateArrive()));
-			instruction.setDate(7, java.sql.Date.valueOf(employe.getDateDepart()));
+			instruction = connection.prepareStatement(
+			"INSERT INTO employe (id_ligue, droit, prenom, nom, password, mail, date_arrive, date_depart) VALUES ((SELECT l.id_ligue FROM ligue l WHERE l.nom = ?), ?, ?, ?, ?, ?, ?, ?);",
+			Statement.RETURN_GENERATED_KEYS
+			);
+			instruction.setString(1, employe.getLigue().getNom());
+			instruction.setObject(2, false);
+			instruction.setString(3, employe.getPrenom());
+			instruction.setString(4, employe.getNom());
+			instruction.setString(5, employe.getPassword());
+			instruction.setString(6, employe.getMail());
+			instruction.setDate(7, java.sql.Date.valueOf(employe.getDateArrive()));
+			instruction.setDate(8, java.sql.Date.valueOf(employe.getDateDepart()));
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -188,7 +178,7 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet employes = instruction.executeQuery(requete);
 			while (employes.next()) {
-				ligue.addEmploye(employes.getInt(1),employes.getString(4), employes.getString(5), employes.getString(7), employes.getString(6), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
+				ligue.addEmploye(employes.getInt(1), ligue, employes.getString(4), employes.getString(5), employes.getString(7), employes.getString(6), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
 			}
 		} catch (SQLException e)
 		{
