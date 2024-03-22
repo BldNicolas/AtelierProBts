@@ -95,6 +95,7 @@ public class LigueConsole
 				);
 	}
 	
+	//TODO: gérer la date de départ
 	private Option ajouterEmploye(final Ligue ligue) {
 	    return new Option("Ajouter un employé", "a", () -> {
 	                try {
