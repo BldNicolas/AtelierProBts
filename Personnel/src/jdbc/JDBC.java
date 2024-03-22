@@ -96,6 +96,32 @@ public class JDBC implements Passerelle
 		}
 	}
 
+	/**
+	 * Récupère les ligues et les employés stocké en base de donnée et les stocke localement dans
+	 * l'objet gestionPersonnel
+	 * @param gestionPersonnel
+	 * @return gestionPersonnel
+	 */
+	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel)
+	{
+		try
+		{
+			Ligue ligue = null;
+			String requete = "select * from ligue";
+			Statement instruction = connection.createStatement();
+			ResultSet ligues = instruction.executeQuery(requete);
+			while (ligues.next())
+			{
+				ligue = gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
+				getEmploye(gestionPersonnel, ligue);
+			}
+		} catch (SQLException e)
+		{
+			System.out.println(e);
+		}
+		return gestionPersonnel;
+	}
+
 	public int insert(Employe employe) throws SauvegardeImpossible
 	{
 		try
@@ -135,32 +161,6 @@ public class JDBC implements Passerelle
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
 		}
-	}
-
-	/**
-	 * Récupère les ligues et les employés stocké en base de donnée et les stocke localement dans
-	 * l'objet gestionPersonnel
-	 * @param gestionPersonnel
-	 * @return gestionPersonnel
-	 */
-	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel)
-	{
-		try
-		{
-			Ligue ligue = null;
-			String requete = "select * from ligue";
-			Statement instruction = connection.createStatement();
-			ResultSet ligues = instruction.executeQuery(requete);
-			while (ligues.next())
-			{
-				ligue = gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
-				getEmploye(gestionPersonnel, ligue);
-			}
-		} catch (SQLException e)
-		{
-			System.out.println(e);
-		}
-		return gestionPersonnel;
 	}
 
 	/**
