@@ -71,7 +71,7 @@ public class PersonnelConsole
 		return ok;
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws SauvegardeImpossible
 	{
 		PersonnelConsole personnelConsole = 
 				new PersonnelConsole(GestionPersonnel.getGestionPersonnel());

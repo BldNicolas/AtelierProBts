@@ -17,6 +17,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateArrive, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
+	private boolean droit = false;
 	
 
 	/**
@@ -31,9 +32,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param dateDepart de l'employé
 	 * @throws SauvegardeImpossible
 	 */
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, boolean droit ,String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{
-		this(gestionPersonnel, -1, ligue,  nom, prenom, mail, password, dateArrive, dateDepart);
+		this(gestionPersonnel, -1,droit, ligue,  nom, prenom, mail, password, dateArrive, dateDepart);
 		this.id = gestionPersonnel.insert(this);
 	}
 	
@@ -48,10 +49,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param password de l'employé
 	 * @param dateArrive de l'employé
 	 * @param dateDepart de l'employé
+	 * @throws SauvegardeImpossible 
 	 */
-	Employe(GestionPersonnel gestionPersonnel, int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) {
+	Employe(GestionPersonnel gestionPersonnel, int id,boolean droit ,Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible {
 	    this.gestionPersonnel = gestionPersonnel;
 		this.id = id;
+		this.droit = droit;
 		setLigue(ligue);
 		setNom(nom);
 		setPrenom(prenom);
@@ -99,11 +102,14 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le nom de l'employé.
 	 * @param nom le nouveau nom.
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setNom(String nom)
+	public void setNom(String nom) throws SauvegardeImpossible
 	{
 		this.nom = nom;
+		gestionPersonnel.update(this);
+
 	}
 
 	/**
@@ -119,11 +125,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le prénom de l'employé.
 	 * @param prenom le nouveau prénom de l'employé.
+	 * @throws SauvegardeImpossible 
 	 */
 
-	public void setPrenom(String prenom)
+	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
 		this.prenom = prenom;
+		gestionPersonnel.update(this);
 	}
 
 	/**
@@ -139,11 +147,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le mail de l'employé.
 	 * @param mail le nouveau mail de l'employé.
+	 * @throws SauvegardeImpossible 
 	 */
 
-	public void setMail(String mail)
+	public void setMail(String mail) throws SauvegardeImpossible
 	{
 		this.mail = mail;
+		gestionPersonnel.update(this);
 	}
 
 	/**
@@ -162,11 +172,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé.
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public void setPassword(String password)
+	public void setPassword(String password) throws SauvegardeImpossible
 	{
 		this.password= password;
+		gestionPersonnel.update(this);
 	}
 	
 	public String getPassword() {
@@ -204,11 +216,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date d'arrivé de l'employé
 	 * @param dateArrive
+	 * @throws SauvegardeImpossible 
 	 * @throws IllegalArgumentException
 	 */
 
-	public void setDateArrive(LocalDate dateArrive) {
+	public void setDateArrive(LocalDate dateArrive) throws SauvegardeImpossible {
 		this.dateArrive = dateArrive;
+		gestionPersonnel.update(this);
 	}
 
 	/**
@@ -223,11 +237,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date de départ de l'employé
 	 * @param dateDepart
+	 * @throws SauvegardeImpossible 
 	 * @throws IllegalArgumentException
 	 */
-	public void setDateDepart(LocalDate dateDepart) {
+	public void setDateDepart(LocalDate dateDepart) throws SauvegardeImpossible {
 		if (dateDepart == null || (dateArrive != null && dateArrive.isBefore(dateDepart))) {
 			this.dateDepart = dateDepart;
+			gestionPersonnel.update(this);
 		} else {
 			throw new IllegalArgumentException("La date de départ est invalide.");
 		}
@@ -271,6 +287,14 @@ public class Employe implements Serializable, Comparable<Employe>
 		else
 			res += ligue.toString();
 		return res + ")";
+	}
+
+	public boolean getDroit() {
+		return droit;
+	}
+
+	public void setDroit(boolean droit) {
+		this.droit = droit;
 	}
 
 

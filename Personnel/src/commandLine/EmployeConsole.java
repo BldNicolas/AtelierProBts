@@ -57,7 +57,13 @@ public class EmployeConsole
 		(
 			"Changer le nom",
 			"n",
-			() -> {employe.setNom(getString("Nouveau nom : "));}
+			() -> {try {
+				employe.setNom(getString("Nouveau nom : "));
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+				System.err.println("Erreur lors de la mise a jour de l'utilisateur (nom)");
+				
+			}}
 		);
 	}
 	
@@ -67,7 +73,12 @@ public class EmployeConsole
 		(
 			"Changer le prénom",
 			"p",
-			() -> {employe.setPrenom(getString("Nouveau prénom : "));}
+			() -> {try {
+				employe.setPrenom(getString("Nouveau prénom : "));
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+				System.err.println("Erreur lors de la mise a jour de l'utilisateur (prenom)");
+			}}
 		);
 	}
 	
@@ -77,7 +88,12 @@ public class EmployeConsole
 		(
 			"Changer le mail",
 			"e",
-			() -> {employe.setMail(getString("Nouveau mail : "));}
+			() -> {try {
+				employe.setMail(getString("Nouveau mail : "));
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+				System.err.println("Erreur lors de la mise a jour de l'utilisateur (mail)");
+			}}
 		);
 	}
 	
@@ -87,7 +103,12 @@ public class EmployeConsole
 		(
 			"Changer le password",
 			"x",
-			() -> {employe.setPassword(getString("Nouveau password : "));}
+			() -> {try {
+				employe.setPassword(getString("Nouveau password : "));
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+				System.err.println("Erreur lors de la mise a jour de l'utilisateur (pass)");
+			}}
 		);
 	}
 

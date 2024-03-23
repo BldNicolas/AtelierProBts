@@ -31,9 +31,10 @@ public class GestionPersonnel implements Serializable
 	 * Retourne l'unique instance de cette classe.
 	 * Crée cet objet s'il n'existe déjà.
 	 * @return l'unique objet de type {@link GestionPersonnel}.
+	 * @throws SauvegardeImpossible 
 	 */
 	
-	public static GestionPersonnel getGestionPersonnel()
+	public static GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible
 	{
 		if (gestionPersonnel == null)
 		{
@@ -44,7 +45,7 @@ public class GestionPersonnel implements Serializable
 		return gestionPersonnel;
 	}
 
-	public GestionPersonnel()
+	public GestionPersonnel() throws SauvegardeImpossible
 	{
 		if (gestionPersonnel != null)
 			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
@@ -139,6 +140,10 @@ public class GestionPersonnel implements Serializable
 	{
 		passerelle.update(ligue);
 	}
+	void update(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.update(employe);
+	}
 	
 	/**
 	 * Insère un employé en base de donnée
@@ -178,6 +183,10 @@ public class GestionPersonnel implements Serializable
 	 */
 	public void addRoot() throws SauvegardeImpossible
 	{
-		this.root = new Employe(this, 1, null, "root", "", "", "toor", LocalDate.of(0001, 01, 01), LocalDate.of(9999, 01, 01));
+		this.root = new Employe (this,null, true ,"root",null, null,"toor",null,null);
+	}
+
+	public void addRoot(int id,boolean droit ,String nom, String password) throws SauvegardeImpossible {
+		this.root = new Employe(this, id,droit ,null,nom, null, null,password, null, null);
 	}
 }

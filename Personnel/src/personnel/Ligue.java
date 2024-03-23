@@ -125,7 +125,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 			throw new IllegalArgumentException("La date d'arrivée ne peut pas être après la date de départ.");
 		}
 
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrive, dateDepart);
+		Employe employe = new Employe(this.gestionPersonnel, this, false, nom, prenom, mail, password, dateArrive, dateDepart);
 		employes.add(employe);
 		return employe;
 	}
@@ -140,10 +140,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param dateArrive de l'employé
 	 * @param dateDepart de l'employé
 	 * @return l'employé créé
+	 * @throws SauvegardeImpossible 
 	 */
-	public Employe addEmploye(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
+	public Employe addEmploye(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{
-		Employe employe = new Employe(gestionPersonnel, id, ligue, nom, prenom, mail, password, dateArrive, dateDepart);
+		Employe employe = new Employe(gestionPersonnel, id, false,ligue, nom, prenom, mail, password, dateArrive, dateDepart);
 		employes.add(employe);
 		return employe;
 	}
@@ -175,6 +176,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public int compareTo(Ligue autre)
 	{
 		return getNom().compareTo(autre.getNom());
+	}
+	
+	public int getId()
+	{
+		return this.id;
 	}
 	
 	@Override

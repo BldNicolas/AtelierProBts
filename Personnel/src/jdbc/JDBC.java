@@ -35,7 +35,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public GestionPersonnel getGestionPersonnel()
+	public GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible 
 	{
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
 		getRoot(gestionPersonnel);
@@ -101,13 +101,14 @@ public class JDBC implements Passerelle
 	 * l'objet gestionPersonnel
 	 * @param gestionPersonnel
 	 * @return gestionPersonnel
+	 * @throws SauvegardeImpossible 
 	 */
-	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel)
+	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible
 	{
 		try
 		{
 			Ligue ligue = null;
-			String requete = "select * from ligue";
+			String requete = "SELECT * FROM ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
 			while (ligues.next())
@@ -150,10 +151,10 @@ public class JDBC implements Passerelle
 		{
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement(
-			"INSERT INTO employe (id_ligue, droit, prenom, nom, password, mail, date_arrive, date_depart) VALUES ((SELECT l.id_ligue FROM ligue l WHERE l.nom = ?), ?, ?, ?, ?, ?, ?, ?);",
+			"INSERT INTO employe (id_ligue, droit, prenom, nom, password, mail, date_arrive, date_depart) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
 			Statement.RETURN_GENERATED_KEYS
 			);
-			instruction.setString(1, employe.getLigue().getNom());
+			instruction.setInt(1, employe.getLigue().getId());
 			instruction.setObject(2, false);
 			instruction.setString(3, employe.getPrenom());
 			instruction.setString(4, employe.getNom());
@@ -165,6 +166,27 @@ public class JDBC implements Passerelle
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
 			return id.getInt(1);
+		} catch (SQLException exception) {
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}
+	}
+	public void update(Employe employe) throws SauvegardeImpossible
+	{
+		try
+		{
+			PreparedStatement instruction = connection.prepareStatement(
+				"UPDATE employe SET droit = ?, prenom = ?, nom = ?, mail = ?, password = ?, date_arrive = ?, date_depart = ? WHERE id_employe = ?"
+				);
+			instruction.setObject(1, false);
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getNom());
+			instruction.setString(4, employe.getPassword());
+			instruction.setString(5, employe.getMail());
+			instruction.setDate(6, employe.getDateArrive()!= null ?java.sql.Date.valueOf(employe.getDateArrive()) : null);
+			instruction.setDate(7, employe.getDateDepart() != null ? java.sql.Date.valueOf(employe.getDateDepart()) : null);
+			instruction.setInt(8, employe.id);
+			instruction.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
@@ -191,8 +213,9 @@ public class JDBC implements Passerelle
 	 * @param gestionPersonnel
 	 * @param ligue dans laquelle on doit chercher l'employé
 	 * @return gestionPersonnel
+	 * @throws SauvegardeImpossible 
 	 */
-	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue)
+	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue) throws SauvegardeImpossible
 	{
 		try
 		{
@@ -221,12 +244,12 @@ public class JDBC implements Passerelle
 			String requete = "SELECT * FROM employe WHERE id_ligue IS NULL;";
 			Statement instruction = connection.createStatement();
 			ResultSet root = instruction.executeQuery(requete);
-			if (!root.next())
+			if (root.next())
 			{
-				requete = "INSERT INTO employe (id_employe, droit, nom, prenom, password, mail, date_arrive) VALUES (1, TRUE, \"root\", \"\", \"toor\", \"\", \"0001-01-01\");";
-				instruction.executeUpdate(requete);
+				gestionPersonnel.addRoot(gestionPersonnel.getRoot().id,gestionPersonnel.getRoot().getDroit(), gestionPersonnel.getRoot().getNom(),gestionPersonnel.getRoot().getPassword());
 			}
-			gestionPersonnel.addRoot();
+			else
+				gestionPersonnel.addRoot();
 
 		} catch (Exception e) {
 			e.printStackTrace();
