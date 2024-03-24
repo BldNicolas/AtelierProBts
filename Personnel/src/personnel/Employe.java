@@ -42,6 +42,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Ajoute un employé localement
 	 * @param gestionPersonnel
 	 * @param id de l'employé
+	 * @param droit de l'emloyé
 	 * @param ligue de l'employé
 	 * @param nom de l'employé
 	 * @param prenom de l'employé
@@ -51,17 +52,17 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param dateDepart de l'employé
 	 * @throws SauvegardeImpossible
 	 */
-	Employe(GestionPersonnel gestionPersonnel, int id,boolean droit ,Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible {
+	Employe(GestionPersonnel gestionPersonnel, int id, boolean droit, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible {
 	    this.gestionPersonnel = gestionPersonnel;
 		this.id = id;
 		this.droit = droit;
-		setLigue(ligue);
-		setNom(nom);
-		setPrenom(prenom);
-		setMail(mail);
-		setPassword(password);
-		setDateArrive(dateArrive);
-		setDateDepart(dateDepart);
+		this.ligue = ligue;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.mail = mail;
+		this.password = password;
+		this.dateArrive = dateArrive;
+		this.dateDepart = dateDepart;
 	}
 	
 	/**

@@ -178,15 +178,28 @@ public class GestionPersonnel implements Serializable
 	}
 
 	/**
-	 * Ajoute le root localement
+	 * Ajoute le root localement et en base de donnée
+	 * @param gestionPersonnel
 	 * @throws SauvegardeImpossible
 	 */
-	public void addRoot() throws SauvegardeImpossible
-	{
-		this.root = new Employe (this,null, true ,"root",null, null,"toor",null,null);
+	public void addRoot(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible {
+		LocalDate dateArrive = LocalDate.now();
+		this.root = new Employe(gestionPersonnel, null, true ,"root", "", "", "toor", dateArrive, null);
 	}
 
-	public void addRoot(int id,boolean droit ,String nom, String password) throws SauvegardeImpossible {
-		this.root = new Employe(this, id,droit ,null,nom, null, null,password, null, null);
+	/**
+	 * Ajoute le root localement
+	 * @param gestionPersonnel
+	 * @param id du root
+	 * @param nom du root
+	 * @param prenom du root
+	 * @param mail du root
+	 * @param password du root
+	 * @param dateArrive du root
+	 * @param dateDepart du root
+	 * @throws SauvegardeImpossible
+	 */
+	public void addRoot(GestionPersonnel gestionPersonnel, int id, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible {
+		this.root = new Employe(gestionPersonnel, id , true, null , nom, prenom, mail, password, dateArrive, dateDepart);
 	}
 }

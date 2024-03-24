@@ -156,17 +156,17 @@ public class JDBC implements Passerelle
 		{
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement(
-			"INSERT INTO employe (id_ligue, droit, prenom, nom, password, mail, date_arrive, date_depart) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
+			"INSERT INTO employe (id_ligue, droit, nom, prenom, mail, password, date_arrive, date_depart) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
 			Statement.RETURN_GENERATED_KEYS
 			);
-			instruction.setInt(1, employe.getLigue().getId());
-			instruction.setObject(2, false);
-			instruction.setString(3, employe.getPrenom());
-			instruction.setString(4, employe.getNom());
-			instruction.setString(5, employe.getPassword());
-			instruction.setString(6, employe.getMail());
+			instruction.setInt(1, employe.getLigue() != null ? employe.getLigue().getId() : null);
+			instruction.setObject(2, employe.getDroit());
+			instruction.setString(3, employe.getNom());
+			instruction.setString(4, employe.getPrenom() != null ? employe.getPrenom() : null);
+			instruction.setString(5, employe.getMail() != null ? employe.getMail() : null);
+			instruction.setString(6, employe.getPassword());
 			instruction.setDate(7, java.sql.Date.valueOf(employe.getDateArrive()));
-			instruction.setDate(8, java.sql.Date.valueOf(employe.getDateDepart()));
+			instruction.setDate(8, employe.getDateDepart() != null ? java.sql.Date.valueOf(employe.getDateDepart()) : null);
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -187,16 +187,16 @@ public class JDBC implements Passerelle
 		try
 		{
 			PreparedStatement instruction = connection.prepareStatement(
-				"UPDATE employe SET droit = ?, prenom = ?, nom = ?, mail = ?, password = ?, date_arrive = ?, date_depart = ? WHERE id_employe = ?"
+				"UPDATE employe SET droit = ?, nom = ?, prenom = ?, mail = ?, password = ?, date_arrive = ?, date_depart = ? WHERE id_employe = ?"
 				);
-			instruction.setObject(1, false);
-			instruction.setString(2, employe.getPrenom());
-			instruction.setString(3, employe.getNom());
-			instruction.setString(4, employe.getPassword());
-			instruction.setString(5, employe.getMail());
-			instruction.setDate(6, employe.getDateArrive()!= null ?java.sql.Date.valueOf(employe.getDateArrive()) : null);
+			instruction.setObject(1, employe.getDroit());
+			instruction.setString(2, employe.getNom());
+			instruction.setString(3, employe.getPrenom());
+			instruction.setString(4, employe.getMail());
+			instruction.setString(5, employe.getPassword());
+			instruction.setDate(6, employe.getDateArrive()!= null ? java.sql.Date.valueOf(employe.getDateArrive()) : null);
 			instruction.setDate(7, employe.getDateDepart() != null ? java.sql.Date.valueOf(employe.getDateDepart()) : null);
-			instruction.setInt(8, employe.id);
+			instruction.setInt(8, employe.getId());
 			instruction.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
@@ -261,12 +261,9 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet root = instruction.executeQuery(requete);
 			if (root.next())
-			{
-				gestionPersonnel.addRoot(gestionPersonnel.getRoot().id,gestionPersonnel.getRoot().getDroit(), gestionPersonnel.getRoot().getNom(),gestionPersonnel.getRoot().getPassword());
-			}
+				gestionPersonnel.addRoot(gestionPersonnel,root.getInt(1), root.getString(4), root.getString(5), root.getString(6), root.getString(7), sqlDateToLocalDate(root.getDate(8)), sqlDateToLocalDate(root.getDate(9)));
 			else
-				gestionPersonnel.addRoot();
-
+				gestionPersonnel.addRoot(gestionPersonnel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -280,6 +277,8 @@ public class JDBC implements Passerelle
 	 */
 	public LocalDate sqlDateToLocalDate(Date dateFromDB)
 	{
+		if (dateFromDB == null)
+			return null;
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(dateFromDB);
 		LocalDate localDate = LocalDate.of(
