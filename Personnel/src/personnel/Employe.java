@@ -18,7 +18,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	private boolean droit = false;
-	
 
 	/**
 	 * Insère un employé dans la base de donnée et l'ajoute en local
@@ -49,7 +48,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param password de l'employé
 	 * @param dateArrive de l'employé
 	 * @param dateDepart de l'employé
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
 	Employe(GestionPersonnel gestionPersonnel, int id,boolean droit ,Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible {
 	    this.gestionPersonnel = gestionPersonnel;
@@ -63,7 +62,6 @@ public class Employe implements Serializable, Comparable<Employe>
 		setDateArrive(dateArrive);
 		setDateDepart(dateDepart);
 	}
-    
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue
@@ -73,7 +71,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param ligue la ligue pour laquelle on souhaite vérifier si this
 	 * est l'admininstrateur.
 	 */
-	
 	public boolean estAdmin(Ligue ligue)
 	{
 		return ligue.getAdministrateur() == this;
@@ -83,7 +80,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne vrai ssi l'employé est le root.
 	 * @return vrai ssi l'employé est le root.
 	 */
-	
 	public boolean estRoot()
 	{
 		return gestionPersonnel.getRoot() == this;
@@ -125,7 +121,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne le nom de l'employé.
 	 * @return le nom de l'employé.
 	 */
-	
 	public String getNom()
 	{
 		return nom;
@@ -134,21 +129,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le nom de l'employé.
 	 * @param nom le nouveau nom.
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
-	
 	public void setNom(String nom) throws SauvegardeImpossible
 	{
 		this.nom = nom;
 		gestionPersonnel.update(this);
-
 	}
 
 	/**
 	 * Retourne le prénom de l'employé.
 	 * @return le prénom de l'employé.
 	 */
-	
 	public String getPrenom()
 	{
 		return prenom;
@@ -157,9 +149,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le prénom de l'employé.
 	 * @param prenom le nouveau prénom de l'employé.
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
-
 	public void setPrenom(String prenom) throws SauvegardeImpossible
 	{
 		this.prenom = prenom;
@@ -170,7 +161,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne le mail de l'employé.
 	 * @return le mail de l'employé.
 	 */
-	
 	public String getMail()
 	{
 		return mail;
@@ -179,9 +169,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le mail de l'employé.
 	 * @param mail le nouveau mail de l'employé.
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
-
 	public void setMail(String mail) throws SauvegardeImpossible
 	{
 		this.mail = mail;
@@ -195,7 +184,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * de l'employé.
 	 * @param password le password auquel comparer celui de l'employé.
 	 */
-	
 	public boolean checkPassword(String password)
 	{
 		return this.password.equals(password);
@@ -204,9 +192,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé.
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
-	
 	public void setPassword(String password) throws SauvegardeImpossible
 	{
 		this.password= password;
@@ -221,7 +208,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne la ligue à laquelle l'employé est affecté.
 	 * @return la ligue à laquelle l'employé est affecté.
 	 */
-	
 	public Ligue getLigue()
 	{
 		return ligue;
@@ -231,16 +217,15 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change la ligue à laquelle l'utilisateur est affecté
 	 * @param ligue
 	 */
-
 	public void setLigue(Ligue ligue)
 	{
 		this.ligue = ligue;
 	}
+
 	/**
 	 * Retourne la date à laquelle l'employé est arrivé.
 	 * @return la date à laquelle l'employé est arrivé.
 	 */
-	
 	public LocalDate getDateArrive() {
 		return dateArrive;
 	}
@@ -248,10 +233,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date d'arrivé de l'employé
 	 * @param dateArrive
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 * @throws IllegalArgumentException
 	 */
-
 	public void setDateArrive(LocalDate dateArrive) throws SauvegardeImpossible {
 		this.dateArrive = dateArrive;
 		gestionPersonnel.update(this);
@@ -261,7 +245,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne la date de départ de l'employé
 	 * @return la date de départ de l'employé
 	 */
-
 	public LocalDate getDateDepart() {
 		return dateDepart;
 	}
@@ -269,7 +252,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date de départ de l'employé
 	 * @param dateDepart
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 * @throws IllegalArgumentException
 	 */
 	public void setDateDepart(LocalDate dateDepart) throws SauvegardeImpossible {
@@ -287,7 +270,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @throws SauvegardeImpossible
 	 * @throws ImpossibleDeSupprimerRoot
 	 */
-	
 	public void remove() throws SauvegardeImpossible
 	{
 		Employe root = gestionPersonnel.getRoot();

@@ -101,7 +101,7 @@ public class JDBC implements Passerelle
 	 * l'objet gestionPersonnel
 	 * @param gestionPersonnel
 	 * @return gestionPersonnel
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
 	public GestionPersonnel getLigue(GestionPersonnel gestionPersonnel) throws SauvegardeImpossible
 	{
