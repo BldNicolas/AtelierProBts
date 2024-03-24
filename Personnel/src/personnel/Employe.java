@@ -48,7 +48,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param prenom de l'employé
 	 * @param mail de l'employé
 	 * @param password de l'employé
-	 * @param dateArrive de l'employé
+	 * @param dateArrive de l'employé 
 	 * @param dateDepart de l'employé
 	 * @throws SauvegardeImpossible
 	 */
