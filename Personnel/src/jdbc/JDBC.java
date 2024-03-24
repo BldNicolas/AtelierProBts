@@ -239,7 +239,17 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet employes = instruction.executeQuery(requete);
 			while (employes.next()) {
-				ligue.addEmploye(employes.getInt(1), ligue, employes.getString(4), employes.getString(5), employes.getString(6), employes.getString(7), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
+				getAdministrateur(gestionPersonnel, ligue, employes);
+				ligue.addEmploye(
+					employes.getInt(1),
+					ligue,
+					employes.getString(4),
+					employes.getString(5),
+					employes.getString(6),
+					employes.getString(7),
+					sqlDateToLocalDate(employes.getDate(8)),
+					sqlDateToLocalDate(employes.getDate(9))
+				);
 			}
 		} catch (SQLException e)
 		{
@@ -261,9 +271,44 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet root = instruction.executeQuery(requete);
 			if (root.next())
-				gestionPersonnel.addRoot(gestionPersonnel,root.getInt(1), root.getString(4), root.getString(5), root.getString(6), root.getString(7), sqlDateToLocalDate(root.getDate(8)), sqlDateToLocalDate(root.getDate(9)));
+				gestionPersonnel.addRoot(
+					gestionPersonnel,
+					root.getInt(1),
+					root.getString(4),
+					root.getString(5),
+					root.getString(6),
+					root.getString(7),
+					sqlDateToLocalDate(root.getDate(8)),
+					sqlDateToLocalDate(root.getDate(9))
+				);
 			else
 				gestionPersonnel.addRoot(gestionPersonnel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gestionPersonnel;
+	}
+
+	public GestionPersonnel getAdministrateur(GestionPersonnel gestionPersonnel, Ligue ligue, ResultSet employe)
+	{
+		try
+		{
+			String requete = "SELECT * FROM employe WHERE id_employe = (SELECT id_admin FROM ligue WHERE id_ligue = " + ligue.getId() + ")";
+			Statement instruction = connection.createStatement();
+			ResultSet administrateur = instruction.executeQuery(requete);
+			if (administrateur.next())
+			{
+				ligue.addAdministrateur(
+					administrateur.getInt(1),
+					ligue,
+					administrateur.getString(4),
+					administrateur.getString(5),
+					administrateur.getString(6),
+					administrateur.getString(7),
+					sqlDateToLocalDate(administrateur.getDate(8)),
+					sqlDateToLocalDate(administrateur.getDate(9))
+				);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

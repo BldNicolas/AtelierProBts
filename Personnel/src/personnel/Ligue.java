@@ -171,7 +171,25 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	{
 		gestionPersonnel.remove(this);
 	}
-	
+
+	/**
+	 * Ajoute l'administrateur localement
+	 * @param id de l'administrateur
+	 * @param ligue de l'administrateur
+	 * @param nom de l'administrateur
+	 * @param prenom de l'administrateur
+	 * @param mail de l'administrateur
+	 * @param password de l'administrateur
+	 * @param dateArrive de l'administrateur
+	 * @param dateDepart de l'administrateur
+	 * @return l'administrateur créé
+	 * @throws SauvegardeImpossible
+	 */
+	public void addAdministrateur(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
+	{
+		Employe administrateur = new Employe(gestionPersonnel, id, false,ligue, nom, prenom, mail, password, dateArrive, dateDepart);
+		setAdministrateur(administrateur);
+	}
 
 	@Override
 	public int compareTo(Ligue autre)
