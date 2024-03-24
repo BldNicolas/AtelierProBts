@@ -13,7 +13,7 @@ public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
-	public int id = -1;
+	private int id = -1;
 	private LocalDate dateArrive, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
@@ -87,6 +87,38 @@ public class Employe implements Serializable, Comparable<Employe>
 	public boolean estRoot()
 	{
 		return gestionPersonnel.getRoot() == this;
+	}
+
+	/**
+	 * Retourne l'id de l'employé
+	 * @return l'id de l'employé
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Change l'id de l'employé
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Retourne les droits de l'employé
+	 * @return les droits de l'employé
+	 */
+	public boolean getDroit() {
+		return droit;
+	}
+
+	/**
+	 * Change les droits de l'employé
+	 * @param droit
+	 */
+	public void setDroit(boolean droit) {
+		this.droit = droit;
 	}
 	
 	/**
@@ -288,15 +320,4 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
-
-	public boolean getDroit() {
-		return droit;
-	}
-
-	public void setDroit(boolean droit) {
-		this.droit = droit;
-	}
-
-
-	
 }
