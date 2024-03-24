@@ -23,6 +23,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Insère un employé dans la base de donnée et l'ajoute en local
 	 * @param gestionPersonnel
 	 * @param ligue de l'employé
+	 * @param droit de l'employé
 	 * @param nom de l'employé
 	 * @param prenom de l'employé
 	 * @param mail de l'employé
@@ -200,6 +201,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		gestionPersonnel.update(this);
 	}
 	
+	/**
+	 * Retourne le mot de passe de l'employé
+	 * @return mot de passe de l'employé
+	 */
 	public String getPassword() {
 		return password;
 	}

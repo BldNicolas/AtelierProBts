@@ -133,6 +133,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	/**
 	 * Ajoute un employé localement
 	 * @param id de l'employé
+	 * @param ligue de l'employé
 	 * @param nom de l'employé
 	 * @param prenom de l'employé
 	 * @param mail de l'employé
@@ -140,7 +141,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param dateArrive de l'employé
 	 * @param dateDepart de l'employé
 	 * @return l'employé créé
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
 	public Employe addEmploye(int id, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart) throws SauvegardeImpossible
 	{

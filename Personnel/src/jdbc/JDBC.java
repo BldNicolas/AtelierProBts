@@ -145,6 +145,11 @@ public class JDBC implements Passerelle
 		}
 	}
 
+	/**
+	 * Insère l'employé dans la base de donnée
+	 * @param employe à ajouter dans la base de donnée
+	 * @return id de l'employé créé
+	 */
 	public int insert(Employe employe) throws SauvegardeImpossible
 	{
 		try
@@ -171,6 +176,12 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}
 	}
+
+	/**
+	 * Met à jour l'employé en base de donnée
+	 * @param employe mis à jour dans la base de donnée
+	 * @throws SauvegardeImpossible
+	 */
 	public void update(Employe employe) throws SauvegardeImpossible
 	{
 		try
@@ -193,6 +204,11 @@ public class JDBC implements Passerelle
 		}
 	}
 
+	/**
+	 * Supprime un employé de la base de donnée
+	 * @param employe supprimé de la base de donnée
+	 * @throws SauvegardeImpossible
+	 */
 	public void remove(Employe employe) throws SauvegardeImpossible
 	{
 		try
@@ -213,7 +229,7 @@ public class JDBC implements Passerelle
 	 * @param gestionPersonnel
 	 * @param ligue dans laquelle on doit chercher l'employé
 	 * @return gestionPersonnel
-	 * @throws SauvegardeImpossible 
+	 * @throws SauvegardeImpossible
 	 */
 	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue) throws SauvegardeImpossible
 	{
