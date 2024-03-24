@@ -235,7 +235,7 @@ public class JDBC implements Passerelle
 	{
 		try
 		{
-			String requete = "SELECT * FROM employe WHERE id_ligue = (SELECT ligue.id_ligue FROM ligue WHERE ligue.nom = \"" + ligue.getNom() + "\");";
+			String requete = "SELECT * FROM employe WHERE id_ligue = " + ligue.getId();
 			Statement instruction = connection.createStatement();
 			ResultSet employes = instruction.executeQuery(requete);
 			while (employes.next()) {
