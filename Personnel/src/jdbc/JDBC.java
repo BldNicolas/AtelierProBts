@@ -239,7 +239,7 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet employes = instruction.executeQuery(requete);
 			while (employes.next()) {
-				ligue.addEmploye(employes.getInt(1), ligue, employes.getString(4), employes.getString(5), employes.getString(7), employes.getString(6), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
+				ligue.addEmploye(employes.getInt(1), ligue, employes.getString(4), employes.getString(5), employes.getString(6), employes.getString(7), sqlDateToLocalDate(employes.getDate(8)), sqlDateToLocalDate(employes.getDate(9)));
 			}
 		} catch (SQLException e)
 		{
