@@ -107,14 +107,14 @@ public class JDBC implements Passerelle
 	{
 		try
 		{
-			Ligue ligue = null;
 			String requete = "SELECT * FROM ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
 			while (ligues.next())
 			{
-				ligue = gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
-				getEmploye(gestionPersonnel, ligue);
+				Ligue ligue = gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(3));
+				Integer idAdmin = ligues.getInt(2);
+				getEmploye(gestionPersonnel, ligue, idAdmin);
 			}
 		} catch (SQLException e)
 		{
@@ -228,10 +228,11 @@ public class JDBC implements Passerelle
 	 * gestionPersonnel
 	 * @param gestionPersonnel
 	 * @param ligue dans laquelle on doit chercher l'employé
+	 * @param idAdmin id de l'admin de la ligue
 	 * @return gestionPersonnel
 	 * @throws SauvegardeImpossible
 	 */
-	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue) throws SauvegardeImpossible
+	public GestionPersonnel getEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, Integer idAdmin) throws SauvegardeImpossible
 	{
 		try
 		{
@@ -239,8 +240,7 @@ public class JDBC implements Passerelle
 			Statement instruction = connection.createStatement();
 			ResultSet employes = instruction.executeQuery(requete);
 			while (employes.next()) {
-				getAdministrateur(gestionPersonnel, ligue, employes);
-				ligue.addEmploye(
+				Employe employe = ligue.addEmploye(
 					employes.getInt(1),
 					ligue,
 					employes.getString(4),
@@ -250,6 +250,8 @@ public class JDBC implements Passerelle
 					sqlDateToLocalDate(employes.getDate(8)),
 					sqlDateToLocalDate(employes.getDate(9))
 				);
+				if (idAdmin == employe.getId())
+					ligue.setAdministrateur(employe);
 			}
 		} catch (SQLException e)
 		{
@@ -283,32 +285,6 @@ public class JDBC implements Passerelle
 				);
 			else
 				gestionPersonnel.addRoot(gestionPersonnel);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return gestionPersonnel;
-	}
-
-	public GestionPersonnel getAdministrateur(GestionPersonnel gestionPersonnel, Ligue ligue, ResultSet employe)
-	{
-		try
-		{
-			String requete = "SELECT * FROM employe WHERE id_employe = (SELECT id_admin FROM ligue WHERE id_ligue = " + ligue.getId() + ")";
-			Statement instruction = connection.createStatement();
-			ResultSet administrateur = instruction.executeQuery(requete);
-			if (administrateur.next())
-			{
-				ligue.addAdministrateur(
-					administrateur.getInt(1),
-					ligue,
-					administrateur.getString(4),
-					administrateur.getString(5),
-					administrateur.getString(6),
-					administrateur.getString(7),
-					sqlDateToLocalDate(administrateur.getDate(8)),
-					sqlDateToLocalDate(administrateur.getDate(9))
-				);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
