@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS VDNGestion;
+USE VDNGestion;
+
 CREATE TABLE employe (
     id_employe INT PRIMARY KEY AUTO_INCREMENT,
     id_ligue INT DEFAULT NULL,
