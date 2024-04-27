@@ -74,7 +74,7 @@ public class Frame extends JFrame{
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Gestionnaire de ligue");
         JButton ligueBtn;
-        JButton backBtn = new JButton("Back");
+        JButton backBtn = new JButton("Quitter");
         JButton addBtn = new JButton("Ajouter une ligue");
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
