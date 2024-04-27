@@ -159,7 +159,7 @@ public class JDBC implements Passerelle
 			"INSERT INTO employe (id_ligue, droit, nom, prenom, mail, password, date_arrive, date_depart) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
 			Statement.RETURN_GENERATED_KEYS
 			);
-			instruction.setInt(1, employe.getLigue() != null ? employe.getLigue().getId() : null);
+			instruction.setObject(1, employe.getLigue() != null ? employe.getLigue().getId() : null);
 			instruction.setObject(2, employe.getDroit());
 			instruction.setString(3, employe.getNom());
 			instruction.setString(4, employe.getPrenom() != null ? employe.getPrenom() : null);
