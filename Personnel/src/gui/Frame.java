@@ -4,12 +4,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.SortedSet;
 
 import javax.swing.*;
 
+import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
+import personnel.SauvegardeImpossible;
 
 public class Frame extends JFrame{
     private GestionPersonnel gestionPersonnel;
@@ -73,24 +74,86 @@ public class Frame extends JFrame{
 
         JPanel panel = new JPanel();
         JLabel title = new JLabel("Gestionnaire de ligue");
+        JLabel selectLigueToEditTxt = new JLabel("Sélectionnez une ligue à modifier :");
         JButton ligueBtn;
         JButton backBtn = new JButton("Quitter");
-        JButton addBtn = new JButton("Ajouter une ligue");
+        JButton addLigueBtn = new JButton("Ajouter une ligue");
+
+        addLigueBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Frame addLigueFrame = addLigueFrame(gestionPersonnel);
+                Gui.showFrame(addLigueFrame);
+            }
+        });
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
         panel.add(title);
-        panel.add(backBtn);
-        panel.add(addBtn);
-
-        for (Ligue ligue : gestionPersonnel.getLigues()) {
-            ligueBtn = new JButton(ligue.getNom());
-            panel.add(ligueBtn);
+        
+        if (gestionPersonnel.getLigues() != null) {
+            panel.add(selectLigueToEditTxt);
+            for (Ligue ligue : gestionPersonnel.getLigues()) {
+                ligueBtn = new JButton(ligue.getNom());
+                panel.add(ligueBtn);
+            }
         }
+        
+        panel.add(backBtn);
+        panel.add(addLigueBtn);
 
         welcomeFrame.setContentPane(panel);
 
         return welcomeFrame;
+    }
+
+    protected static Frame addLigueFrame(GestionPersonnel gestionPersonnel)
+    {
+        Frame addLigueFrame = new Frame(gestionPersonnel);
+
+        JPanel panel = new JPanel();
+        JLabel addLigueTxt = new JLabel("Ajouter une ligue");
+        JLabel ligueNameTxt = new JLabel("Nom de la ligue : ");
+        JTextField ligueNameField = new JTextField();
+        JButton validateBtn = new JButton("Valider");
+
+        validateBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String ligueName = ligueNameField.getText();
+                try
+                {
+                    gestionPersonnel.addLigue(ligueName);
+                    Frame welcomeFrame = welcomeFrame(gestionPersonnel);
+                    Gui.showFrame(welcomeFrame);
+                }
+                catch(SauvegardeImpossible exception)
+                {
+                    JLabel impossibleToSaveTxt = new JLabel("Impossible de sauvegarder cette ligue !");
+                    
+                    panel.add(impossibleToSaveTxt);
+
+                    addLigueFrame.setContentPane(panel);
+
+                    Gui.showFrame(addLigueFrame);
+                }
+            }
+        });
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+        panel.add(addLigueTxt);
+        panel.add(ligueNameTxt);
+        panel.add(ligueNameField);
+        panel.add(validateBtn);
+
+        addLigueFrame.setContentPane(panel);
+
+        return addLigueFrame;
     }
 
     protected static void makeFrameFullSize(JFrame frame) {
