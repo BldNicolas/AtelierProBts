@@ -30,7 +30,7 @@ public class Frame extends JFrame{
         JPanel panel = new JPanel();
         JButton validateBtn = new JButton("Valider");
         JTextField mail = new JTextField("mail");
-        JTextField passWord = new JPasswordField("mot de passe");
+        JTextField passWord = new JPasswordField();
         JLabel pleaseConnect = new JLabel("Veuillez vous connecter :");
 
         validateBtn.addActionListener(new ActionListener()
