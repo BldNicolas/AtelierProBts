@@ -79,6 +79,15 @@ public class Frame extends JFrame{
         JButton backBtn = new JButton("Quitter");
         JButton addLigueBtn = new JButton("Ajouter une ligue");
 
+        backBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Gui.showFrame(exitFrame(gestionPersonnel));
+            }
+        });
+
         addLigueBtn.addActionListener(new ActionListener()
         {
             @Override
@@ -258,6 +267,68 @@ public class Frame extends JFrame{
         selectLigueFrame.setContentPane(panel);
 
         return selectLigueFrame;
+    }
+
+    protected static Frame exitFrame(GestionPersonnel gestionPersonnel)
+    {
+        Frame exitFrame = new Frame(gestionPersonnel);
+
+        JPanel panel = new JPanel();
+        JLabel exitTxt = new JLabel("Quitter");
+        JButton backButton = new JButton("Revenir en arrière");
+        JButton exitWithSaveBtn = new JButton("Quitter en enrengistrant");
+        JButton exitWithoutSaveBtn = new JButton("Quitter sans enregistrer");
+
+        backButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                Gui.showFrame(welcomeFrame(gestionPersonnel));
+            }
+        });
+
+        exitWithSaveBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                try {
+                    gestionPersonnel.sauvegarder();
+                    System.exit(0);
+                }
+                catch (SauvegardeImpossible e1)
+                {
+                JLabel impossibleToSaveTxt = new JLabel("Impossible de sauvegarder !");
+                
+                panel.add(impossibleToSaveTxt);
+
+                exitFrame.setContentPane(panel);
+
+                Gui.showFrame(exitFrame);
+                }
+            }
+        });
+
+        exitWithoutSaveBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+
+        panel.add(exitTxt);
+        panel.add(exitWithSaveBtn);
+        panel.add(exitWithoutSaveBtn);
+        panel.add(backButton);
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+        exitFrame.setContentPane(panel);
+
+        return exitFrame;
     }
 
     protected static void makeFrameFullSize(JFrame frame) {
