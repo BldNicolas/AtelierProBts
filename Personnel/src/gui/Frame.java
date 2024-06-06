@@ -42,7 +42,7 @@ public class Frame extends JFrame{
                 if(verifiePassword(password, gestionPersonnel))
                 {
                     Frame welcomeFrame = welcomeFrame(gestionPersonnel);
-                    Gui.showFrame(welcomeFrame);
+                    Gui.swapFrame(connexionFrame, welcomeFrame);
                 } else
                 {
                     JLabel wrongPassword = new JLabel("Mot de passe ou email incorrect !");
@@ -84,7 +84,7 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Gui.showFrame(exitFrame(gestionPersonnel));
+                Gui.swapFrame(welcomeFrame, exitFrame(gestionPersonnel));
             }
         });
 
@@ -94,7 +94,7 @@ public class Frame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 Frame addLigueFrame = addLigueFrame(gestionPersonnel);
-                Gui.showFrame(addLigueFrame);
+                Gui.swapFrame(welcomeFrame(gestionPersonnel), addLigueFrame);
             }
         });
 
@@ -112,7 +112,7 @@ public class Frame extends JFrame{
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                       Gui.showFrame(selectLigueFrame(gestionPersonnel, ligue));
+                        Gui.swapFrame(welcomeFrame, selectLigueFrame(gestionPersonnel, ligue));
                     }
                 });
 
@@ -148,7 +148,7 @@ public class Frame extends JFrame{
                 {
                     gestionPersonnel.addLigue(ligueName);
                     Frame welcomeFrame = welcomeFrame(gestionPersonnel);
-                    Gui.showFrame(welcomeFrame);
+                    Gui.swapFrame(addLigueFrame, welcomeFrame);
                 }
                 catch(SauvegardeImpossible exception)
                 {
@@ -193,7 +193,7 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Gui.showFrame(welcomeFrame(gestionPersonnel));
+                Gui.swapFrame(selectLigueFrame, welcomeFrame(gestionPersonnel));
             }
         });
 
@@ -202,7 +202,7 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Gui.showFrame(editLigueFrame(gestionPersonnel));
+                Gui.swapFrame(selectLigueFrame, editLigueFrame(gestionPersonnel));
             }
         });
 
@@ -213,7 +213,7 @@ public class Frame extends JFrame{
             {
                 try {
                     ligue.remove();
-                    Gui.showFrame(welcomeFrame(gestionPersonnel));
+                    Gui.swapFrame(selectLigueFrame, welcomeFrame(gestionPersonnel));
                 }
                 catch (SauvegardeImpossible e1)
                 {
@@ -233,7 +233,7 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Gui.showFrame(addEmployeFrame(gestionPersonnel, ligue));
+                Gui.swapFrame(selectLigueFrame, addEmployeFrame(gestionPersonnel));
             }
         });
 
@@ -252,7 +252,7 @@ public class Frame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    Gui.showFrame(editEmployeFrame(gestionPersonnel, employe));
+                    Gui.swapFrame(selectLigueFrame, editEmployeFrame(gestionPersonnel, employe));
                 }
             });
 
@@ -284,7 +284,7 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Gui.showFrame(welcomeFrame(gestionPersonnel));
+                Gui.swapFrame(exitFrame, welcomeFrame(gestionPersonnel));
             }
         });
 
@@ -341,5 +341,4 @@ public class Frame extends JFrame{
 		boolean isCorrect = gestionPersonnel.getRoot().checkPassword(password);
 		return isCorrect;
 	}
-
 }
