@@ -1,14 +1,14 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
 
 import personnel.GestionPersonnel;
 
 public class Frame extends JFrame{
-    private GestionPersonnel gestionPersonnel;
+    protected GestionPersonnel gestionPersonnel;
 
     public Frame(GestionPersonnel gestionPersonnel)
     {
@@ -42,4 +42,17 @@ public class Frame extends JFrame{
     {
         frame.setVisible(true);
     }
+
+    /**
+     * Convert a String to a LocalDate
+     * @param dateString the date should be "dd-MM-yyyy"
+     * @return
+     */
+    protected LocalDate strToLocalDate(String dateString)
+    {
+	    LocalDate date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        date = LocalDate.parse(dateString, formatter);
+	    return date;
+	}
 }
