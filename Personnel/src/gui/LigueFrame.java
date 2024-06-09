@@ -64,7 +64,7 @@ public class LigueFrame extends Frame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        Frame.swap(picker, ligue(gestionPersonnel, ligue));
+                        Frame.swap(picker, select(gestionPersonnel, ligue));
                     }
                 });
 
@@ -127,9 +127,9 @@ public class LigueFrame extends Frame {
         return add;
     }
     
-    protected static Frame ligue(GestionPersonnel gestionPersonnel, Ligue ligue)
+    protected static Frame select(GestionPersonnel gestionPersonnel, Ligue ligue)
     {
-        Frame ligue = new Frame(gestionPersonnel);
+        Frame select = new Frame(gestionPersonnel);
 
         JPanel panel = new JPanel();
         JLabel ligueNameTxt = new JLabel(ligue.getNom());
@@ -145,7 +145,7 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(ligue, picker(gestionPersonnel));
+                Frame.swap(select, picker(gestionPersonnel));
             }
         });
 
@@ -154,7 +154,7 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(ligue, editLigueFrame(gestionPersonnel));
+                Frame.swap(select, editLigueFrame(gestionPersonnel));
             }
         });
 
@@ -165,7 +165,7 @@ public class LigueFrame extends Frame {
             {
                 try {
                     ligue.remove();
-                    Frame.swap(ligue, picker(gestionPersonnel));
+                    Frame.swap(select, picker(gestionPersonnel));
                 }
                 catch (SauvegardeImpossible e1)
                 {
@@ -173,9 +173,9 @@ public class LigueFrame extends Frame {
                     
                     panel.add(impossibleToSaveTxt);
 
-                    ligue.setContentPane(panel);
+                    select.setContentPane(panel);
 
-                    Frame.show(ligue);
+                    Frame.show(select);
                 }
             }
         });
@@ -185,7 +185,7 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(ligue, EmployeFrame.add(gestionPersonnel, ligue));
+                Frame.swap(select, addEmployeFrame(gestionPersonnel));
             }
         });
 
@@ -197,14 +197,14 @@ public class LigueFrame extends Frame {
             if (employe.estAdmin(ligue)) {
                 panel.add(adminLigueTxt);
             }
-            employeBtn = new JButton(employe.getNom() + " " + employe.getPrenom());
+            employeBtn = new JButton(employe.getNom() + employe.getPrenom());
 
             employeBtn.addActionListener(new ActionListener()
             {
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    Frame.swap(ligue, editEmployeFrame(gestionPersonnel, employe));
+                    Frame.swap(select, editEmployeFrame(gestionPersonnel, employe));
                 }
             });
 
@@ -216,8 +216,8 @@ public class LigueFrame extends Frame {
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-        ligue.setContentPane(panel);
+        select.setContentPane(panel);
 
-        return ligue;
+        return select;
     }
 }
