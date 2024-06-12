@@ -135,7 +135,7 @@ public class LigueFrame extends Frame {
         JLabel ligueNameTxt = new JLabel(ligue.getNom());
         JLabel adminLigueTxt = new JLabel("Administrateur de la ligue :");
         JButton backBtn = new JButton("Revenir en arrière");
-        JButton editLigueBtn = new JButton("Modifier la ligue");
+        JButton renameLigueBtn = new JButton("Renomer la ligue");
         JButton deleteLigueBtn = new JButton("Supprimer la ligue");
         JButton addEmployeBtn = new JButton("Ajouter un employé");
         JButton employeBtn;
@@ -149,12 +149,12 @@ public class LigueFrame extends Frame {
             }
         });
 
-        editLigueBtn.addActionListener(new ActionListener()
+        renameLigueBtn.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(select, editLigueFrame(gestionPersonnel));
+                Frame.swap(select, renameLigueFrame(gestionPersonnel,ligue));
             }
         });
 
@@ -185,12 +185,12 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(select, addEmployeFrame(gestionPersonnel));
+                Frame.swap(select, EmployeFrame(gestionPersonnel));
             }
         });
 
         panel.add(ligueNameTxt);
-        panel.add(editLigueBtn);
+        panel.add(renameLigueBtn);
         panel.add(deleteLigueBtn);
 
         for (Employe employe : ligue.getEmployes()) {
@@ -219,5 +219,57 @@ public class LigueFrame extends Frame {
         select.setContentPane(panel);
 
         return select;
+    }
+    
+    protected static Frame renameLigueFrame(GestionPersonnel gestionPersonnel, Ligue ligue) {
+        Frame renameLigueFrame = new Frame(gestionPersonnel);
+
+        JPanel panel = new JPanel();
+        JLabel renameLigueTxt = new JLabel("Renommer la ligue :");
+        JTextField newNameField = new JTextField(ligue.getNom());
+        JButton validateBtn = new JButton("Valider");
+        JButton backBtn = new JButton("Revenir en arrière");
+
+        validateBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+                String newName = newNameField.getText();
+                
+                try {
+					ligue.setNom(newName);
+				} catch (SauvegardeImpossible e1) {
+					e1.printStackTrace();
+				}
+                
+                try {
+                    gestionPersonnel.update(ligue);
+                    Frame.swap(renameLigueFrame, select(gestionPersonnel, ligue));
+                } catch (SauvegardeImpossible exception) {
+                    JLabel impossibleToSaveTxt = new JLabel("Impossible de sauvegarder cette ligue !");
+                    panel.add(impossibleToSaveTxt);
+                    renameLigueFrame.setContentPane(panel);
+                    Frame.show(renameLigueFrame);
+                }
+            }
+        });
+
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Frame.swap(renameLigueFrame, select(gestionPersonnel, ligue));
+            }
+        });
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+        panel.add(renameLigueTxt);
+        panel.add(newNameField);
+        panel.add(validateBtn);
+        panel.add(backBtn);
+
+        renameLigueFrame.setContentPane(panel);
+
+        return renameLigueFrame;
     }
 }

@@ -136,10 +136,11 @@ public class GestionPersonnel implements Serializable
 	 * @param ligue
 	 * @throws SauvegardeImpossible
 	 */
-	void update(Ligue ligue) throws SauvegardeImpossible
+	public void update(Ligue ligue) throws SauvegardeImpossible
 	{
 		passerelle.update(ligue);
 	}
+	
 	void update(Employe employe) throws SauvegardeImpossible
 	{
 		passerelle.update(employe);

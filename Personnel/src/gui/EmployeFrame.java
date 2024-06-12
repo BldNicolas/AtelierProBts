@@ -47,7 +47,7 @@ public class EmployeFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                // TODO: Vérifier si définir comme administrateur avant de créer l'employé
+                
                 String firstName = firstNameField.getText();
                 String lastName = lastNameField.getText();
                 String mail = mailField.getText();
