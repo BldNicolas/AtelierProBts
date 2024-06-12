@@ -47,17 +47,24 @@ public class EmployeFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                
                 String firstName = firstNameField.getText();
                 String lastName = lastNameField.getText();
                 String mail = mailField.getText();
                 String arrivalDate = arrivalDateField.getText();
                 String departureDate = departureDateField.getText();
                 String password = passwordField.getText();
+                boolean isAdmin = adminCheckBox.isSelected();
 
                 try {
+                    // Ajouter l'employé à la ligue et sauvegarder dans la base de données
                     ligue.addEmploye(lastName, firstName, mail, password, add.strToLocalDate(arrivalDate), add.strToLocalDate(departureDate));
-                    Frame.swap(add, LigueFrame.ligue(gestionPersonnel, ligue));
+                    
+                    // Vérifier si l'employé doit être administrateur
+                    if (isAdmin) {
+                        ligue.setAdministrateur(ligue.getEmployes().last());
+                    }
+                    
+                    Frame.swap(add, LigueFrame.select(gestionPersonnel, ligue));
                 } catch (SauvegardeImpossible e1) {
                     e1.printStackTrace();
                 }
@@ -69,7 +76,7 @@ public class EmployeFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(add, LigueFrame.ligue(gestionPersonnel, ligue));
+                Frame.swap(add, LigueFrame.select(gestionPersonnel, ligue));
             }
         });
 

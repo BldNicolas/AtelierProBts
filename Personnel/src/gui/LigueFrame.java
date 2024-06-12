@@ -185,7 +185,7 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(select, EmployeFrame(gestionPersonnel));
+                Frame.swap(select, EmployeFrame.add(gestionPersonnel,ligue));
             }
         });
 
