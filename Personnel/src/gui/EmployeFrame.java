@@ -30,8 +30,8 @@ public class EmployeFrame extends Frame {
         JLabel firstNameTxt = new JLabel("Prénom :");
         JLabel lastNameTxt = new JLabel("Nom de famille :");
         JLabel mailTxt = new JLabel("Mail :");
-        JLabel arrivalDateTxt = new JLabel("Date d'arrivée :");
-        JLabel departureDateTxt = new JLabel("Date de départ :");
+        JLabel arrivalDateTxt = new JLabel("Date d'arrivée (Format: dd-mm-yyyy) :");
+        JLabel departureDateTxt = new JLabel("* Facultatif Date de départ (Format: dd-mm-yyyy)  :");
         JLabel passwordTxt = new JLabel("Mot de passe :");
         JTextField firstNameField = new JTextField();
         JTextField lastNameField = new JTextField();

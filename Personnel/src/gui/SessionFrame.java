@@ -25,7 +25,7 @@ public class SessionFrame extends Frame{
 
         JPanel panel = new JPanel();
         JButton validateBtn = new JButton("Valider");
-        JTextField mail = new JTextField("mail");
+        JTextField nom = new JTextField("nom");
         JTextField passWord = new JPasswordField();
         JLabel pleaseConnect = new JLabel("Veuillez vous connecter :");
 
@@ -41,7 +41,7 @@ public class SessionFrame extends Frame{
                     Frame.swap(connexion, picker);
                 } else
                 {
-                    JLabel wrongPassword = new JLabel("Mot de passe ou email incorrect !");
+                    JLabel wrongPassword = new JLabel(" Nom ou Mot de passe incorrect !");
                     
                     panel.add(wrongPassword);
 
@@ -55,7 +55,7 @@ public class SessionFrame extends Frame{
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
         panel.add(pleaseConnect);
-        panel.add(mail);
+        panel.add(nom);
         panel.add(passWord);
         panel.add(validateBtn);
 

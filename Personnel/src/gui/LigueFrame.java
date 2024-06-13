@@ -25,7 +25,7 @@ public class LigueFrame extends Frame {
         Frame picker = new Frame(gestionPersonnel);
 
         JPanel panel = new JPanel();
-        JLabel title = new JLabel("Gestionnaire de ligue");
+        JLabel title = new JLabel("Gestionnaire de ligue VDNGestion ");
         JLabel selectLigueToEditTxt = new JLabel("Sélectionnez une ligue à modifier :");
         JButton ligueBtn;
         JButton backBtn = new JButton("Quitter");
