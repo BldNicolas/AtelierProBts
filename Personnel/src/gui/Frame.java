@@ -52,7 +52,21 @@ public class Frame extends JFrame{
     {
 	    LocalDate date = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        date = LocalDate.parse(dateString, formatter);
+        if (!dateString.isEmpty())
+            date = LocalDate.parse(dateString, formatter);
 	    return date;
+	}
+
+    /**
+     * Convert a LocalDate to a String
+     * @param LocalDate to convert
+     * @return date in format "dd-MM-yyyy"
+     */
+    protected String localDateToString(LocalDate dateLocalDate)
+    {
+        if (dateLocalDate == null)
+            return null;
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	    return dateLocalDate.format(pattern);
 	}
 }

@@ -105,12 +105,13 @@ public class EmployeFrame extends Frame {
 
         return add;
     }
-    
-    public static Frame edit(GestionPersonnel gestionPersonnel, Employe employe) {
+
+    public static Frame edit(GestionPersonnel gestionPersonnel, Employe employe)
+    {
         Frame edit = new Frame(gestionPersonnel);
 
         JPanel panel = new JPanel();
-        JLabel titleTxt = new JLabel("Modifier un employé");
+        JLabel titleTxt = new JLabel("Gérer l'employé :");
         JLabel firstNameTxt = new JLabel("Prénom :");
         JLabel lastNameTxt = new JLabel("Nom de famille :");
         JLabel mailTxt = new JLabel("Mail :");
@@ -120,16 +121,18 @@ public class EmployeFrame extends Frame {
         JTextField firstNameField = new JTextField(employe.getPrenom());
         JTextField lastNameField = new JTextField(employe.getNom());
         JTextField mailField = new JTextField(employe.getMail());
-        JTextField arrivalDateField = new JTextField(employe.getDateArrive().toString());
-        JTextField departureDateField = new JTextField(employe.getDateDepart() != null ? employe.getDateDepart().toString() : "");
+        JTextField arrivalDateField = new JTextField(edit.localDateToString(employe.getDateArrive()));
+        JTextField departureDateField = new JTextField(edit.localDateToString(employe.getDateDepart()));
         JTextField passwordField = new JPasswordField(employe.getPassword());
-        JCheckBox adminCheckBox = new JCheckBox("Définir comme administrateur", employe.estAdmin(employe.getLigue()));
         JButton backBtn = new JButton("Revenir en arrière");
         JButton validateBtn = new JButton("Valider");
+        JCheckBox adminCheckBox = new JCheckBox("Définir comme administrateur", employe.estAdmin(employe.getLigue()));
 
-        validateBtn.addActionListener(new ActionListener() {
+        validateBtn.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 String firstName = firstNameField.getText();
                 String lastName = lastNameField.getText();
                 String mail = mailField.getText();
@@ -178,9 +181,9 @@ public class EmployeFrame extends Frame {
         panel.add(departureDateField);
         panel.add(passwordTxt);
         panel.add(passwordField);
-        panel.add(adminCheckBox);
-        panel.add(validateBtn);
         panel.add(backBtn);
+        panel.add(validateBtn);
+        panel.add(adminCheckBox);
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
