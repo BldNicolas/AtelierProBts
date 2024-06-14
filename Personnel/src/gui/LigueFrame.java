@@ -185,7 +185,7 @@ public class LigueFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                Frame.swap(select, EmployeFrame.add(gestionPersonnel,ligue));
+                Frame.swap(select, EmployeFrame.add(gestionPersonnel, ligue));
             }
         });
 
@@ -197,7 +197,7 @@ public class LigueFrame extends Frame {
             if (employe.estAdmin(ligue)) {
                 panel.add(adminLigueTxt);
             }
-            employeBtn = new JButton(employe.getNom() + employe.getPrenom());
+            employeBtn = new JButton(employe.getNom() + " " + employe.getPrenom());
 
             employeBtn.addActionListener(new ActionListener()
             {
